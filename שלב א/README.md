@@ -33,3 +33,15 @@
 
 
 ----------------------------------------------------------------------------------------------------------
+**ממשק משתמש ** Generated Screens
+
+שלב א/Screenshot 2026-03-12 at 20.49.30.png
+שלב א/Screenshot 2026-03-12 at 20.49.36.png
+שלב א/Screenshot 2026-03-12 at 20.49.40.png
+שלב א/Screenshot 2026-03-12 at 20.49.45.png
+שלב א/Screenshot 2026-03-12 at 20.49.50.png
+שלב א/Screenshot 2026-03-12 at 20.49.54.png
+שלב א/Screenshot 2026-03-12 at 20.49.59.png
+שלב א/Screenshot 2026-03-12 at 20.50.04.png
+שלב א/Screenshot 2026-03-12 at 20.50.11.png
+שלב א/Screenshot 2026-03-12 at 20.52.01.png
