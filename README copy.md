@@ -41,15 +41,20 @@ Department Tracking: Monitoring manpower distribution across various hospital de
 
 The system uses foreign keys, specialized roles, and entity relationships to ensure a streamlined workflow for hospital administrators.
 
+_____________________________________________________________________________________________
+
 **🗂️ ERD and DSD Diagrams**
 
 ERD (Entity Relationship Diagram)
+<img width="3369" height="2436" alt="image" src="https://github.com/user-attachments/assets/df236ecd-51f7-4b4b-b6db-c26c13cc7c88" />
 
 
 DSD (Data Structure Diagram)
 (Add your DSD image here once generated)
 
-🗃️ Data Structure Description
+________________________________________________________________________________________________
+
+**🗃️ Data Structure Description**
 Below is a summary of the main entities and their fields:
 
 Staff (Base Entity)
@@ -77,14 +82,18 @@ Shift_Date
 
 Shift_Type (Morning/Evening/Night)
 
-📥 Data Insertion Methods
+_____________________________________________________________________________________________
+
+**📥 Data Insertion Methods**
 ✅ Method A: Python Script
 (Insert screenshot of your Python insertion script here)
 
 ✅ Method B: Mockaroo Generator
 (Insert screenshot of your Mockaroo configuration here)
 
-💾 Backup & Restore
+_____________________________________________________________________________________________
+
+**💾 Backup & Restore**
 Backup Process
 (Insert screenshot of your successful pg_dump/Backup here)
 
