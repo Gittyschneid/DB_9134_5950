@@ -1,63 +1,94 @@
-**שם הפרויקט:** מערכת ניהול בית חולים
+🏥 Medical Staff Management System - Hospital Database
 
-**יחידה נבחרת:** ניהול צוות רפואי (Medical Staff Management)
+**📘 Project Report**
+This project is a comprehensive Medical Staff Management System designed to manage the human resources of a hospital, focusing on doctors, nurses, and shift scheduling. It was developed as part of a database course project.
 
-**מגישות:** גיטי שיידר 333805950 ואביטל טל 214939134
+**🧑‍💻 Authors**
+*Gitty Schneider (333805950)
 
-**תוכן עניינים:**
+*Avital Tal (214939134)
 
-*מבוא
+**🏢 Project Scope**
+*System: Hospital Management System
 
-*ממשק משתמש AI Generated Screens
+*Unit: Medical Staff Management
 
-*תרשימי ERD ו-DSD
+_______________________________________________________________________________________
 
-*החלטות עיצוב ונימוקים
+**📌 Table of Contents**
+1. Overview
 
-*הזנת נתונים (3 שיטות)
+2. ERD and DSD Diagrams
 
-*גיבוי ושחזור נתונים
+3. Data Structure Description
 
-----------------------------------------------------------------------------------------------------------
-**מבוא**
+4. Data Insertion Methods
 
-המערכת נועדה לנהל את המשאב האנושי בבית החולים, תוך התמקדות ברופאים ואחיות. המערכת שומרת נתונים אישיים של אנשי הצוות, שיוך אחיות למחלקות ספציפיות, וניהול לוח המשמרות.
+5. Backup & Restore
 
-פונקציונליות עיקרית:
+6. Future Stages
 
-*שיבוץ עובדים למשמרות (יחס רבים-לרבים).
+__________________________________________________________________________________________
 
-*ניהול היררכיית תפקידים (רופא/אחות) תוך שמירה על שלמות הנתונים.
+**🧾 Overview**
+The system is designed to manage the human resource assets of a hospital, specifically focusing on the professional medical team. Key functionalities include:
 
-*מעקב אחר כוח אדם לפי מחלקות
+Shift Scheduling: Managing the many-to-many relationship of staff assignments to shifts.
 
+Role Hierarchy: Organizing data for doctors and nurses while maintaining data integrity.
 
-----------------------------------------------------------------------------------------------------------
-**ממשק משתמש**
+Department Tracking: Monitoring manpower distribution across various hospital departments.
 
-שלב א/Screenshot 2026-03-12 at 20.49.30.png
+The system uses foreign keys, specialized roles, and entity relationships to ensure a streamlined workflow for hospital administrators.
 
-שלב א/Screenshot 2026-03-12 at 20.49.36.png
+**🗂️ ERD and DSD Diagrams**
 
-שלב א/Screenshot 2026-03-12 at 20.49.40.png
-
-שלב א/Screenshot 2026-03-12 at 20.49.45.png
-
-שלב א/Screenshot 2026-03-12 at 20.49.50.png
-
-שלב א/Screenshot 2026-03-12 at 20.49.54.png
-
-שלב א/Screenshot 2026-03-12 at 20.49.59.png
-
-שלב א/Screenshot 2026-03-12 at 20.50.04.png
-
-שלב א/Screenshot 2026-03-12 at 20.50.11.png
-
-שלב א/Screenshot 2026-03-12 at 20.52.01.png
-
-----------------------------------------------------------------------------------------------------------
-**תרשימי ERD ו- DSD**
-
-שלב א/erdplus.png
+ERD (Entity Relationship Diagram)
 
 
+DSD (Data Structure Diagram)
+(Add your DSD image here once generated)
+
+🗃️ Data Structure Description
+Below is a summary of the main entities and their fields:
+
+Staff (Base Entity)
+Represents all medical personnel.
+
+Staff_ID (Primary Key)
+
+FirstName
+
+LastName
+
+Role (Doctor/Nurse)
+
+Nurses
+Nurse_ID (Foreign Key to Staff)
+
+Certification_Level
+
+Department_ID
+
+Shifts
+Shift_ID (Primary Key)
+
+Shift_Date
+
+Shift_Type (Morning/Evening/Night)
+
+📥 Data Insertion Methods
+✅ Method A: Python Script
+(Insert screenshot of your Python insertion script here)
+
+✅ Method B: Mockaroo Generator
+(Insert screenshot of your Mockaroo configuration here)
+
+💾 Backup & Restore
+Backup Process
+(Insert screenshot of your successful pg_dump/Backup here)
+
+Restore Process
+(Insert screenshot of your successful Restore here)
+
+-----------------------------------------------------------------------------------------------------
