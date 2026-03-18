@@ -4,11 +4,13 @@
 This project is a comprehensive Medical Staff Management System designed to manage the human resources of a hospital, focusing on doctors, nurses, and shift scheduling. It was developed as part of a database course project.
 
 **🧑‍💻 Authors**
+
 *Gitty Schneider (333805950)
 
 *Avital Tal (214939134)
 
 **🏢 Project Scope**
+
 *System: Hospital Management System
 
 *Unit: Medical Staff Management
@@ -16,6 +18,7 @@ This project is a comprehensive Medical Staff Management System designed to mana
 _______________________________________________________________________________________
 
 **📌 Table of Contents**
+
 1. Overview
 
 2. ERD and DSD Diagrams
@@ -31,6 +34,7 @@ ________________________________________________________________________________
 __________________________________________________________________________________________
 
 **🧾 Overview**
+
 The system is designed to manage the human resource assets of a hospital, specifically focusing on the professional medical team. Key functionalities include:
 
 Shift Scheduling: Managing the many-to-many relationship of staff assignments to shifts.
@@ -55,6 +59,7 @@ DSD (Data Structure Diagram)
 ________________________________________________________________________________________________
 
 **🗃️ Data Structure Description**
+
 Below is a summary of the main entities and their fields:
 
 Staff (Base Entity)
@@ -85,6 +90,7 @@ Shift_Type (Morning/Evening/Night)
 _____________________________________________________________________________________________
 
 **📥 Data Insertion Methods**
+
 ✅ Method A: Python Script
 (Insert screenshot of your Python insertion script here)
 
@@ -94,6 +100,7 @@ ________________________________________________________________________________
 _____________________________________________________________________________________________
 
 **💾 Backup & Restore**
+
 Backup Process
 (Insert screenshot of your successful pg_dump/Backup here)
 
