@@ -91,11 +91,13 @@ ________________________________________________________________________________
 
 **📥 Data Insertion Methods**
 
-✅ Method A: Python Script
+**Method A: Python Script**
 (Insert screenshot of your Python insertion script here)
 
-✅ Method B: Mockaroo Generator
+**Method B: Mockaroo Generator**
 (Insert screenshot of your Mockaroo configuration here)
+
+**Method C: Insert**
 
 _____________________________________________________________________________________________
 
