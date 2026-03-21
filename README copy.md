@@ -1,4 +1,4 @@
-🏥 Medical Staff Management System - Hospital Database
+<img width="3456" height="2424" alt="image" src="https://github.com/user-attachments/assets/9ae1b299-3179-4ce4-b19e-f1379d1bd9c7" />🏥 Medical Staff Management System - Hospital Database
 
 **📘 Project Report**
 This project is a comprehensive Medical Staff Management System designed to manage the human resources of a hospital, focusing on doctors, nurses, and shift scheduling. It was developed as part of a database course project.
@@ -54,8 +54,7 @@ ERD (Entity Relationship Diagram)
 
 
 DSD (Data Structure Diagram)
-(Add your DSD image here once generated)
-
+<img width="3456" height="2424" alt="image" src="https://github.com/user-attachments/assets/bb2f0baa-59c6-4710-a7f5-1784d3fe99ea" />
 ________________________________________________________________________________________________
 
 **🗃️ Data Structure Description**
