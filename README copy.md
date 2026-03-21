@@ -1,4 +1,4 @@
-<img width="3456" height="2424" alt="image" src="https://github.com/user-attachments/assets/9ae1b299-3179-4ce4-b19e-f1379d1bd9c7" />🏥 Medical Staff Management System - Hospital Database
+🏥 Medical Staff Management System - Hospital Database
 
 **📘 Project Report**
 This project is a comprehensive Medical Staff Management System designed to manage the human resources of a hospital, focusing on doctors, nurses, and shift scheduling. It was developed as part of a database course project.
