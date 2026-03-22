@@ -91,10 +91,7 @@ ________________________________________________________________________________
 
 **📥 Data Insertion Methods**
 
-**Method A: Python Script**
-(Insert screenshot of your Python insertion script here)
-
-**Method B: Mockaroo Data Generation**
+**Method A: Mockaroo Data Generation**
 
 Data was generated using the Mockaroo website.
 
@@ -108,7 +105,7 @@ These SQL scripts were executed in pgAdmin to insert data into the database.
 
 <img src="Images/Stage_1/Generating department.jpg" width="600"/>
 
-**CSV Import using pgAdmin**
+**Method B: CSV Import using pgAdmin**
 
 Some of the generated data was exported as CSV files and imported into PostgreSQL using pgAdmin.
 
@@ -122,7 +119,7 @@ After fixing the issues, the CSV files were successfully imported into the relev
 
 <img src="Images/Stage_1/import.jpg" width="600"/>
 
-**Method C: Insert**
+**Method C: Insert with Python Script**
 
 -- 1. הכנסת 500 מחלקות
 INSERT INTO Department (department_id, department_name, location)
