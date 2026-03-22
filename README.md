@@ -1,4 +1,4 @@
-🏥 Medical Staff Management System - Hospital Database
+**🏥 Medical Staff Management System - Hospital Database**
 
 **📘 Project Report**
 This project is a comprehensive Medical Staff Management System designed to manage the human resources of a hospital, focusing on doctors, nurses, and shift scheduling. It was developed as part of a database course project.
@@ -45,6 +45,8 @@ Department Tracking: Monitoring manpower distribution across various hospital de
 
 The system uses foreign keys, specialized roles, and entity relationships to ensure a streamlined workflow for hospital administrators.
 
+Link for the site we made with AI Studio:
+file:///Users/gitty/Desktop/SCHOOL/מיניפ%20בסנת/DB_9134_5950/management.html
 _____________________________________________________________________________________________
 
 **🗂️ ERD and DSD Diagrams**
@@ -202,8 +204,7 @@ Although the backup file appears as a binary file and is not readable as plain t
 The backup operation demonstrates the ability to export the full database for recovery purposes.
 
 <img src="Images/Stage_1/backup.jpg" width="600"/>
+<img width="2805" height="173" alt="image" src="https://github.com/user-attachments/assets/e7be678d-ce88-40ff-939d-8b9d6fef52a6" />
 
-Restore Process
-(Insert screenshot of your successful Restore here)
 
 -----------------------------------------------------------------------------------------------------
