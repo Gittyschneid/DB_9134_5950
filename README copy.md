@@ -104,7 +104,9 @@ The generated output was exported as SQL files.
 
 These SQL scripts were executed in pgAdmin to insert data into the database.
 
-📌 Screenshots of the Mockaroo schema and generated SQL are included in the project.
+<img src="Images/Stage_1/Generating department - mockaroo.png" width="600"/>
+
+<img src="Images/Stage_1/Generating department.jpg" width="600"/>
 
 **CSV Import using pgAdmin**
 
@@ -118,7 +120,7 @@ During the import process, several issues were encountered:
 
 After fixing the issues, the CSV files were successfully imported into the relevant tables.
 
-📌 Screenshots of the import process and errors are included.
+<img src="Images/Stage_1/import.jpg" width="600"/>
 
 **Method C: Insert**
 
@@ -190,7 +192,19 @@ ________________________________________________________________________________
 **💾 Backup & Restore**
 
 Backup Process
-(Insert screenshot of your successful pg_dump/Backup here)
+**Backup Process**
+
+A database backup was created using pgAdmin.
+
+The backup process was initiated from the database interface, and a .backup file was generated.
+
+The backup file is included in the project repository.
+
+Although the backup file appears as a binary file and is not readable as plain text, this is expected behavior for PostgreSQL backup files.
+
+The backup operation demonstrates the ability to export the full database for recovery purposes.
+
+<img src="Images/Stage_1/backup.jpg" width="600"/>
 
 Restore Process
 (Insert screenshot of your successful Restore here)
