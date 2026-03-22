@@ -94,8 +94,31 @@ ________________________________________________________________________________
 **Method A: Python Script**
 (Insert screenshot of your Python insertion script here)
 
-**Method B: Mockaroo Generator**
-(Insert screenshot of your Mockaroo configuration here)
+**Method B: Mockaroo Data Generation**
+
+Data was generated using the Mockaroo website.
+
+We defined schemas that match the database tables and generated sample data.
+
+The generated output was exported as SQL files.
+
+These SQL scripts were executed in pgAdmin to insert data into the database.
+
+📌 Screenshots of the Mockaroo schema and generated SQL are included in the project.
+
+**CSV Import using pgAdmin**
+
+Some of the generated data was exported as CSV files and imported into PostgreSQL using pgAdmin.
+
+During the import process, several issues were encountered:
+
+- Some tables required matching the exact number of columns.
+- One of the CSV imports failed due to missing values in a column that did not allow NULL.
+- The issue was resolved by adjusting the data and ensuring compatibility with the table structure.
+
+After fixing the issues, the CSV files were successfully imported into the relevant tables.
+
+📌 Screenshots of the import process and errors are included.
 
 **Method C: Insert**
 
