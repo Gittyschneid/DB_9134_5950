@@ -303,6 +303,31 @@ Option A (IN Subquery) Option B (JOIN):
 
 **Rollback & Commit Transactions**
 
+Rollback Demonstration
+
+We simulated a mass email update error and used ROLLBACK to restore data integrity.
+
+ Database state during the transaction (Unsaved Error):
+ 
+<img width="1223" height="759" alt="Screenshot 2026-03-28 at 22 22 35" src="https://github.com/user-attachments/assets/4c8f1de2-0bb2-483d-ae85-73736eb18043" />
+
+ Database state after ROLLBACK (Data Restored):
+
+<img width="1225" height="759" alt="Screenshot 2026-03-28 at 22 23 15" src="https://github.com/user-attachments/assets/7dc96a66-4fd7-49f5-a865-1552a345e883" />
+
+Commit Demonstration
+
+We successfully updated the hospital wing location and used COMMIT to save the changes permanently.
+
+Previewing the location update:
+
+<img width="1229" height="514" alt="Screenshot 2026-03-28 at 22 23 52" src="https://github.com/user-attachments/assets/114e1599-d139-46a0-9fb2-11dbd3236770" />
+
+Final state after COMMIT:
+
+<img width="1232" height="508" alt="Screenshot 2026-03-28 at 22 24 28" src="https://github.com/user-attachments/assets/35fe13d0-cfb0-41e9-96b4-a1012ead1036" />
+
+
 -----------------------------------------------------------------------------------------------------
 
 **Constraints Using ALTER TABLE**
