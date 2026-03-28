@@ -219,6 +219,7 @@ The backup operation demonstrates the ability to export the full database for re
 
 -----------------------------------------------------------------------------------------------------
 **📘 Stage 2 – Advanced SQL Queries & Constraints**
+-----------------------------------------------------------------------------------------------------
 
 This section includes documentation and screenshots for advanced SQL queries (SELECT, DELETE, UPDATE) and constraint handling as required in Stage 2.
 
@@ -291,8 +292,20 @@ Option A (IN Subquery) Option B (JOIN):
 <img width="1001" height="580" alt="Screenshot 2026-03-28 at 21 23 13" src="https://github.com/user-attachments/assets/70667b32-5a10-4f58-9963-514faf64c183" />
 
 -----------------------------------------------------------------------------------------------------
+
+**📊 DELETE Queries**
+
 -----------------------------------------------------------------------------------------------------
-**Constraints**
+
+**📊 UPDATE Queries**
+
+-----------------------------------------------------------------------------------------------------
+
+**Rollback & Commit Transactions**
+
+-----------------------------------------------------------------------------------------------------
+
+**Constraints Using ALTER TABLE**
 
 <img width="885" height="733" alt="Screenshot 2026-03-28 at 20 53 28" src="https://github.com/user-attachments/assets/8768da5f-9478-4847-b2d2-ec49ff3e76a1" />
 
