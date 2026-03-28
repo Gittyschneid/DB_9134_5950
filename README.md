@@ -238,6 +238,61 @@ Find departments that have fewer than 30 Nurses assigned
 
 <img width="884" height="733" alt="Screenshot 2026-03-28 at 20 46 54" src="https://github.com/user-attachments/assets/1b085931-68df-4887-ad6c-3081cab79592" />
 
-🔍 SELECT 3: Department Staffing Levels
+🔍 SELECT 3: Staff Performance: Low-Volume Responders
 
+Finds staff members who have worked less than 5 shifts in the first quarter of the year.
+
+<img width="889" height="731" alt="Screenshot 2026-03-28 at 21 02 19" src="https://github.com/user-attachments/assets/7420aa0d-be62-496d-a57e-fd04bd7f2683" />
+
+🔍 SELECT 4: Department Head Oversight Report
+
+Joins 4 tables to show Department names, their Head Doctors, and the total staff in that department.
+
+<img width="878" height="733" alt="Screenshot 2026-03-28 at 21 05 04" src="https://github.com/user-attachments/assets/e9af6402-6e5c-4b0d-b415-1342b0eb1545" />
+
+(The 4 Double Queries- Efficiency Comparison)
+
+🔍 SELECT 5: Active Doctors in Cardiology
+
+Option A (Subquery) Option B (JOIN):
+
+<img width="885" height="731" alt="Screenshot 2026-03-28 at 21 09 05" src="https://github.com/user-attachments/assets/fc514a48-8f0c-4ebe-8ca1-d1ccfe846e6d" />
+
+<img width="882" height="733" alt="Screenshot 2026-03-28 at 21 08 01" src="https://github.com/user-attachments/assets/61f46d8c-1e8e-490a-8142-5b19c418b9ce" />
+
+🔍 SELECT 6:Identifying "Multi-Role" Staff
+
+Find staff members who are registered as both a Doctor and a Nurse (Data Integrity check).
+
+Option A (INTERSECT) Option B (JOIN):
+
+<img width="888" height="433" alt="Screenshot 2026-03-28 at 21 11 22" src="https://github.com/user-attachments/assets/b79e316d-4bde-461c-a5c2-b0e319a7da29" />
+
+<img width="883" height="436" alt="Screenshot 2026-03-28 at 21 11 36" src="https://github.com/user-attachments/assets/b968823d-9e74-4ad5-9b6b-394ae0d8987f" />
+
+🔍 SELECT 7: Staff with Assignments on a Specific Date
+
+Find the emails of staff members working on '2026-03-20'
+
+Option A (EXISTS) Option B (JOIN):
+
+<img width="1000" height="572" alt="Screenshot 2026-03-28 at 21 14 08" src="https://github.com/user-attachments/assets/03f320ea-53d4-4c2b-94cd-fb44d39cea1d" />
+
+<img width="1001" height="576" alt="Screenshot 2026-03-28 at 21 14 26" src="https://github.com/user-attachments/assets/253bab24-9372-444c-ae02-9f1cc25341be" />
+
+🔍 SELECT 8: Specialization Availability by Department
+
+ist the names and emails of all Doctors who are specialized in 'Pediatrics' and work in Department ID 1
+
+Option A (IN Subquery) Option B (JOIN):
+
+<img width="1007" height="575" alt="Screenshot 2026-03-28 at 21 22 51" src="https://github.com/user-attachments/assets/6199cc22-1463-44f7-8c7d-4f0e298ce8a9" />
+
+<img width="1001" height="580" alt="Screenshot 2026-03-28 at 21 23 13" src="https://github.com/user-attachments/assets/70667b32-5a10-4f58-9963-514faf64c183" />
+
+-----------------------------------------------------------------------------------------------------
+-----------------------------------------------------------------------------------------------------
+**Constraints**
+
+<img width="885" height="733" alt="Screenshot 2026-03-28 at 20 53 28" src="https://github.com/user-attachments/assets/8768da5f-9478-4847-b2d2-ec49ff3e76a1" />
 
