@@ -29,7 +29,17 @@ ________________________________________________________________________________
 
 5. Backup & Restore
 
-6. Future Stages
+6. Stage 2 – Advanced SQL Queries & Constraints
+
+    *SELECT Queries
+   
+    *DELETE Queries
+   
+    *UPDATE Queries
+   
+    *Rollback & Commit Transactions
+   
+    *Constraints Using ALTER TABLE
 
 __________________________________________________________________________________________
 
@@ -208,3 +218,26 @@ The backup operation demonstrates the ability to export the full database for re
 
 
 -----------------------------------------------------------------------------------------------------
+**📘 Stage 2 – Advanced SQL Queries & Constraints**
+
+This section includes documentation and screenshots for advanced SQL queries (SELECT, DELETE, UPDATE) and constraint handling as required in Stage 2.
+
+**📊 SELECT Queries**
+
+A total of 8 SELECT queries were implemented. Each query is described and accompanied by screenshots.
+
+🔍 SELECT 1: Monthly Workload Report 
+
+This is for the "Management Dashboard" screen to see how many shifts each staff member did per month.
+
+<img width="894" height="739" alt="Screenshot 2026-03-28 at 20 38 47" src="https://github.com/user-attachments/assets/c7507eed-b041-4aa9-91d3-1ddba70ce32e" />
+
+🔍 SELECT 2: Department Staffing Levels
+
+Find departments that have fewer than 30 Nurses assigned
+
+<img width="884" height="733" alt="Screenshot 2026-03-28 at 20 46 54" src="https://github.com/user-attachments/assets/1b085931-68df-4887-ad6c-3081cab79592" />
+
+🔍 SELECT 3: Department Staffing Levels
+
+
