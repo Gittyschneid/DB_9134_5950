@@ -2,9 +2,17 @@ ________________________________________________________________________________
 1. Active Doctors in Cardiology
 
 _______________________________________________________________________________________________________
-2. Active Doctors in Cardiology
-
-
+2. Department Staffing Levels
+  
+SELECT D.department_name, D.location, nurse_counts.total
+FROM Department D
+JOIN (
+    SELECT department_id, COUNT(*) AS total
+    FROM Staff
+    WHERE role = 'Nurse'
+    GROUP BY department_id
+) nurse_counts ON D.department_id = nurse_counts.department_id
+WHERE nurse_counts.total < 30;
 _______________________________________________________________________________________________________
 3. Department Head Oversight Report
 
