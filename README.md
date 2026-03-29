@@ -345,9 +345,9 @@ NOT EXISTS
 JOIN
 Date filtering with INTERVAL
 
-<img src="Images/Stage_2/DELETE 3-before.jpg" width="600"/>
+<img src="Images/stage_2/DELETE 3-before.jpg" width="600"/>
 
-<img src="Images/Stage_2/DELETE 3-after.jpg" width="600"/>
+<img src="Images/stage_2/DELETE 3-after.jpg" width="600"/>
 
 -----------------------------------------------------------------------------------------------------
 
@@ -364,9 +364,9 @@ SQL Features Used
 Subquery
 LIMIT (to ensure only one doctor is selected)
 
-<img src="Images/Stage_2/UPDATE 1-before.jpg" width="600"/>
+<img src="Images/stage_2/UPDATE 1-before.jpg" width="600"/>
 
-<img src="Images/Stage_2/UPDATE 1-after.jpg" width="600"/>
+<img src="Images/stage_2/UPDATE 1-after.jpg" width="600"/>
 
 🔍 UPDATE 2: Modifying Future Shifts
 
@@ -380,9 +380,9 @@ Leaves past data unchanged
 SQL Features Used
 Date filtering using CURRENT_DATE
 
-<img src="Images/Stage_2/UPDATE 2-before.jpg" width="600"/>
+<img src="Images/stage_2/UPDATE 2-before.jpg" width="600"/>
 
-<img src="Images/Stage_2/UPDATE 2-after.jpg" width="600"/>
+<img src="Images/stage_2/UPDATE 2-after.jpg" width="600"/>
 
 🔍 UPDATE 3: Balancing Workload for Overloaded Staff
 
@@ -398,9 +398,9 @@ Subquery
 GROUP BY + HAVING
 Date filtering
 
-<img src="Images/Stage_2/UPDATE 3-before.jpg" width="600"/>
+<img src="Images/stage_2/UPDATE 3-before.jpg" width="600"/>
 
-<img src="Images/Stage_2/UPDATE 3-after.jpg" width="600"/>
+<img src="Images/stage_2/UPDATE 3-after.jpg" width="600"/>
 
 -----------------------------------------------------------------------------------------------------
 
