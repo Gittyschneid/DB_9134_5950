@@ -307,7 +307,7 @@ INTERVAL usage
 
 <img src="Images/stage_2/DELETE 1-before.jpg" width="600"/>
 
-<img src="Images/Stage_2/DELETE 1-after.jpg" width="600"/>
+<img src="Images/stage_2/DELETE 1-after.jpg" width="600"/>
 
 🔍 DELETE 2: Removing Duplicate Shift Records
 
@@ -326,9 +326,9 @@ Subquery
 GROUP BY
 Aggregate function (MIN)
 
-<img src="Images/Stage_2/DELETE 2-before.jpg" width="600"/>
+<img src="Images/stage_2/DELETE 2-before.jpg" width="600"/>
 
-<img src="Images/Stage_2/DELETE 2-after.jpg" width="600"/>
+<img src="Images/stage_2/EDLETE 2-after.jpg" width="600"/>
 
 🔍 DELETE 3: Removing Inactive Departments
 
