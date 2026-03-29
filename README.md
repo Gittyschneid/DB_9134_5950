@@ -294,10 +294,113 @@ Option A (IN Subquery) Option B (JOIN):
 -----------------------------------------------------------------------------------------------------
 
 **📊 DELETE Queries**
+🔍 DELETE 1: Removing Old Shift Records
+
+To maintain database efficiency and reduce unnecessary data storage, old shift records that are no longer relevant were removed from the system.
+
+This query:
+Deletes shifts older than one year
+Keeps only relevant and recent data
+SQL Features Used
+Date comparison
+INTERVAL usage
+
+<img src="Images/Stage_2/DELETE 1-before.jpg" width="600"/>
+
+<img src="Images/Stage_2/DELETE 1-after.jpg" width="600"/>
+
+🔍 DELETE 2: Removing Duplicate Shift Records
+
+During data entry or imports, duplicate shift records may occur.
+This query ensures data integrity by removing duplicate records while keeping one valid entry.
+
+This query:
+Identifies duplicate rows based on:
+staff_id
+shift_id
+shift_date
+Keeps only the earliest record using MIN
+Deletes all other duplicates
+SQL Features Used
+Subquery
+GROUP BY
+Aggregate function (MIN)
+
+<img src="Images/Stage_2/DELETE 2-before.jpg" width="600"/>
+
+<img src="Images/Stage_2/EDLETE 2-after.jpg" width="600"/>
+
+🔍 DELETE 3: Removing Inactive Departments
+
+Over time, some hospital departments may become inactive and no longer have staff assigned to them.
+To keep the system clean and accurate, these unused departments were removed.
+
+This query:
+Deletes departments that:
+Have no staff assigned
+Have no recent activity
+Uses a safe approach to avoid foreign key violations
+SQL Features Used
+NOT EXISTS
+JOIN
+Date filtering with INTERVAL
+
+<img src="Images/Stage_2/DELETE 3-before.jpg" width="600"/>
+
+<img src="Images/Stage_2/DELETE 3-after.jpg" width="600"/>
 
 -----------------------------------------------------------------------------------------------------
 
 **📊 UPDATE Queries**
+🔍 UPDATE 1: Assigning a New Head Doctor to the Engineering Department
+
+In the hospital system, an Engineering department required a new head doctor due to administrative changes.
+To simulate a realistic management decision, we selected a doctor with the specialization Cardiology and assigned them as the new head of the department.
+
+This query:
+Selects a doctor with a specific specialization (Cardiology)
+Assigns that doctor as the head of the Engineering department
+SQL Features Used
+Subquery
+LIMIT (to ensure only one doctor is selected)
+
+<img src="Images/Stage_2/UPDATE 1-before.jpg" width="600"/>
+
+<img src="Images/Stage_2/UPDATE 1-after.jpg" width="600"/>
+
+🔍 UPDATE 2: Modifying Future Shifts
+
+Due to increased workload and operational needs, hospital management decided to adjust future shift assignments.
+All upcoming Evening shifts (Shift 2) were reassigned to Night shifts (Shift 3) to ensure better coverage.
+
+This query:
+Targets only future shifts
+Updates shift type from 2 → 3
+Leaves past data unchanged
+SQL Features Used
+Date filtering using CURRENT_DATE
+
+<img src="Images/Stage_2/UPDATE 2-before.jpg" width="600"/>
+
+<img src="Images/Stage_2/UPDATE 2-after.jpg" width="600"/>
+
+🔍 UPDATE 3: Balancing Workload for Overloaded Staff
+
+The hospital system identified staff members who were assigned to multiple shifts, potentially causing workload imbalance.
+To prevent staff burnout and improve scheduling fairness, their future shifts were reassigned to a lighter shift type.
+
+This query:
+Identifies staff with more than 3 shifts using GROUP BY and HAVING
+Updates only their future shifts
+Reassigns them to Shift 1 (lighter workload)
+SQL Features Used
+Subquery
+GROUP BY + HAVING
+Date filtering
+
+<img src="Images/Stage_2/UPDATE 3-before.jpg" width="600"/>
+
+<img src="Images/Stage_2/UPDATE 3-after.jpg" width="600"/>
 
 -----------------------------------------------------------------------------------------------------
 
