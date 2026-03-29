@@ -111,5 +111,158 @@ JOIN Doctor D ON S.staff_id = D.staff_id
 WHERE S.department_id = 10 
 AND D.specialization = 'Pediatrics';
 
+
+********************************************************************************************************
+THE 3 UPDATE QUERIES:
+********************************************************************************************************
+1. Update Department Head for Engineering
+
+-- BEFORE
+SELECT * FROM Department
+WHERE department_name = 'Engineering';
+
+SELECT * FROM Doctor
+WHERE specialization = 'Cardiology';
+
+-- EXECUTE
+WITH available_doctors AS (
+    SELECT doc.doctor_id
+    FROM Doctor doc
+    WHERE doc.specialization = 'Cardiology'
+      AND doc.doctor_id NOT IN (
+          SELECT head_doctor_id
+          FROM Department
+          WHERE head_doctor_id IS NOT NULL
+      )
+    ORDER BY doc.doctor_id
+    LIMIT 1
+)
+UPDATE Department d
+SET head_doctor_id = ad.doctor_id
+FROM available_doctors ad
+WHERE d.department_id = (
+    SELECT MIN(department_id)
+    FROM Department
+    WHERE department_name = 'Engineering'
+);
+
+-- AFTER
+SELECT * FROM Department
+WHERE department_name = 'Engineering';
 ********************************************************************************************************
 
+2. Update Future Shifts from Evening to Night
+
+-- BEFORE
+SELECT * FROM Staff_Shift
+WHERE shift_id = 2 AND shift_date > CURRENT_DATE
+ORDER BY shift_date;
+
+-- EXECUTE
+UPDATE Staff_Shift
+SET shift_id = 3
+WHERE shift_id = 2 AND shift_date > CURRENT_DATE;
+
+-- AFTER
+SELECT * FROM Staff_Shift
+WHERE shift_date > CURRENT_DATE
+ORDER BY shift_date;
+********************************************************************************************************
+
+3. Reduce Workload for Overloaded Staff
+
+-- BEFORE
+SELECT staff_id, COUNT(*) as future_shifts
+FROM Staff_Shift
+WHERE shift_date > CURRENT_DATE
+GROUP BY staff_id
+HAVING COUNT(*) > 3;
+
+-- EXECUTE
+UPDATE Staff_Shift
+SET shift_id = 1
+WHERE staff_id IN (
+    SELECT staff_id
+    FROM Staff_Shift
+    WHERE shift_date > CURRENT_DATE
+    GROUP BY staff_id
+    HAVING COUNT(*) > 3
+)
+AND shift_date > CURRENT_DATE;
+
+-- AFTER
+SELECT * FROM Staff_Shift
+WHERE shift_date > CURRENT_DATE
+ORDER BY staff_id, shift_date;
+
+********************************************************************************************************
+THE 3 DELETE QUERIES:
+********************************************************************************************************
+1. Delete Old Shifts
+
+-- BEFORE
+SELECT * FROM Staff_Shift
+WHERE shift_date < CURRENT_DATE - INTERVAL '1 year';
+
+-- EXECUTE
+DELETE FROM Staff_Shift
+WHERE shift_date < CURRENT_DATE - INTERVAL '1 year';
+
+-- AFTER
+SELECT * FROM Staff_Shift
+WHERE shift_date < CURRENT_DATE - INTERVAL '1 year';
+********************************************************************************************************
+
+2. Delete Duplicate Shifts
+
+-- BEFORE
+SELECT staff_id, shift_id, shift_date, COUNT(*)
+FROM Staff_Shift
+GROUP BY staff_id, shift_id, shift_date
+HAVING COUNT(*) > 1;
+
+-- EXECUTE
+DELETE FROM Staff_Shift
+WHERE staff_shift_id NOT IN (
+    SELECT MIN(staff_shift_id)
+    FROM Staff_Shift
+    GROUP BY staff_id, shift_id, shift_date
+);
+
+-- AFTER
+SELECT staff_id, shift_id, shift_date, COUNT(*)
+FROM Staff_Shift
+GROUP BY staff_id, shift_id, shift_date
+HAVING COUNT(*) > 1;
+********************************************************************************************************
+
+3. Delete Inactive Departments
+
+-- BEFORE
+SELECT * FROM Department d
+WHERE NOT EXISTS (
+    SELECT 1 FROM Staff s
+    WHERE s.department_id = d.department_id
+);
+
+-- EXECUTE
+DELETE FROM Department d
+WHERE NOT EXISTS (
+    SELECT 1
+    FROM Staff s
+    WHERE s.department_id = d.department_id
+)
+AND NOT EXISTS (
+    SELECT 1
+    FROM Staff s
+    JOIN Staff_Shift ss ON s.staff_id = ss.staff_id
+    WHERE s.department_id = d.department_id
+    AND ss.shift_date > CURRENT_DATE - INTERVAL '6 months'
+);
+
+-- AFTER
+SELECT * FROM Department d
+WHERE NOT EXISTS (
+    SELECT 1 FROM Staff s
+    WHERE s.department_id = d.department_id
+);
