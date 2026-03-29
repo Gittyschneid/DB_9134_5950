@@ -305,7 +305,7 @@ SQL Features Used
 Date comparison
 INTERVAL usage
 
-<img src="Images/Stage_2/DELETE 1-before.jpg" width="600"/>
+<img src="Images/stage_2/DELETE 1-before.jpg" width="600"/>
 
 <img src="Images/Stage_2/DELETE 1-after.jpg" width="600"/>
 
