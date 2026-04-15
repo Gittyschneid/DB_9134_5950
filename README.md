@@ -231,25 +231,25 @@ A total of 8 SELECT queries were implemented. Each query is described and accomp
 
 This is for the "Management Dashboard" screen to see how many shifts each staff member did per month.
 
-<img width="894" height="739" alt="Screenshot 2026-03-28 at 20 38 47" src="https://github.com/user-attachments/assets/c7507eed-b041-4aa9-91d3-1ddba70ce32e" />
+<img width="647" height="496" alt="Screenshot 2026-04-15 at 14 28 00" src="https://github.com/user-attachments/assets/66721e1d-9f81-403d-b065-af5ce3d53678" />
 
 🔍 SELECT 2: Department Staffing Levels
 
 Find departments that have fewer than 30 Nurses assigned
 
-<img width="884" height="733" alt="Screenshot 2026-03-28 at 20 46 54" src="https://github.com/user-attachments/assets/1b085931-68df-4887-ad6c-3081cab79592" />
+<img width="543" height="490" alt="Screenshot 2026-04-15 at 14 28 30" src="https://github.com/user-attachments/assets/cec8f9ab-f3ad-4835-af2d-bdffb745a3b1" />
 
 🔍 SELECT 3: Staff Performance: Low-Volume Responders
 
 Finds staff members who have worked less than 5 shifts in the first quarter of the year.
 
-<img width="889" height="731" alt="Screenshot 2026-03-28 at 21 02 19" src="https://github.com/user-attachments/assets/7420aa0d-be62-496d-a57e-fd04bd7f2683" />
+<img width="581" height="692" alt="Screenshot 2026-04-15 at 14 30 09" src="https://github.com/user-attachments/assets/8d788ed7-f109-42f7-af98-aa4ebed00f52" />
 
 🔍 SELECT 4: Department Head Oversight Report
 
-Joins 4 tables to show Department names, their Head Doctors, and the total staff in that department.
+Joins 3 tables to show Department names, their Head Doctors, and the total staff in that department.
 
-<img width="878" height="733" alt="Screenshot 2026-03-28 at 21 05 04" src="https://github.com/user-attachments/assets/e9af6402-6e5c-4b0d-b415-1342b0eb1545" />
+<img width="643" height="616" alt="Screenshot 2026-04-15 at 14 29 04" src="https://github.com/user-attachments/assets/c00be5db-5eb5-4f9a-bb47-0955ebe0a18a" />
 
 (The 4 Double Queries- Efficiency Comparison)
 
