@@ -43,7 +43,7 @@ ________________________________________________________________________________
 
 __________________________________________________________________________________________
 
-**🧾 Overview**
+**🧾 Stage 1- Overview**
 
 The system is designed to manage the human resource assets of a hospital, specifically focusing on the professional medical team. Key functionalities include:
 
@@ -436,4 +436,16 @@ Final state after COMMIT:
 **Constraints Using ALTER TABLE**
 
 <img width="885" height="733" alt="Screenshot 2026-03-28 at 20 53 28" src="https://github.com/user-attachments/assets/8768da5f-9478-4847-b2d2-ec49ff3e76a1" />
+
+
+-----------------------------------------------------------------------------------------------------
+**📘 Stage 3 – Integration and Views**
+-----------------------------------------------------------------------------------------------------
+
+📜This stage focuses on integrating the Financial Department database with the Dormitory Management database — a crucial component of the overall university management system. The objective is to build a unified structure that enables a comprehensive view of student-related information, combining both financial and residential data. As part of this integration, SQL views were created from both the perspective of our department and the collaborating department. These views provide streamlined, role-specific access to the combined data, making it easier for each side to retrieve and analyze the information most relevant to their operational needs.
+
+-----------------------------------------------------------------------------------------------------
+
+**🗂️ ERD and DSD Diagrams**
+
 
