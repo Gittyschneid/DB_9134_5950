@@ -66,7 +66,7 @@ ERD (Entity Relationship Diagram)
 
 
 DSD (Data Structure Diagram)
-<img width="2595" height="2427" alt="image" src="https://github.com/user-attachments/assets/8fc35a8e-df50-441f-838d-7986a8c410d4" />
+<img width="4080" height="2802" alt="image" src="https://github.com/user-attachments/assets/9c79f69d-0e41-451c-b741-953a2f531561" />
 
 ________________________________________________________________________________________________
 
