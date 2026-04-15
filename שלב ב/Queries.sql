@@ -5,30 +5,30 @@ THE 8 SELECT QUERIES:
 1. Monthly Workload Report
 
 SELECT 
-    S.first_name, 
-    S.last_name, 
-    EXTRACT(MONTH FROM SS.shift_date) AS shift_month,
-    EXTRACT(YEAR FROM SS.shift_date) AS shift_year,
-    COUNT(SS.staff_shift_id) AS total_shifts
-FROM Staff S
-JOIN Staff_Shift SS ON S.staff_id = SS.staff_id
-GROUP BY S.first_name, S.last_name, shift_month, shift_year
-HAVING COUNT(SS.staff_shift_id) > 5
-ORDER BY shift_year DESC, shift_month DESC;
+    s.staff_id,
+    s.first_name, 
+    s.last_name, 
+    date_trunc('month', ss.shift_date) AS shift_month,
+    COUNT(*) AS total_shifts
+FROM Staff s
+JOIN Staff_Shift ss 
+  ON s.staff_id = ss.staff_id
+GROUP BY 
+    s.staff_id, s.first_name, s.last_name, shift_month
+HAVING COUNT(*) > 2
+ORDER BY shift_month DESC;
 
 ********************************************************************************************************
 
 2. Department Staffing Levels
   
-SELECT D.department_name, D.location, nurse_counts.total
-FROM Department D
-JOIN (
-    SELECT department_id, COUNT(*) AS total
-    FROM Staff
-    WHERE role = 'Nurse'
-    GROUP BY department_id
-) nurse_counts ON D.department_id = nurse_counts.department_id
-WHERE nurse_counts.total < 30;
+SELECT d.department_name, d.location, COUNT(*) AS total
+FROM Department d
+JOIN Staff s 
+  ON d.department_id = s.department_id
+WHERE s.role = 'Nurse'
+GROUP BY d.department_id, d.department_name, d.location
+HAVING COUNT(*) < 30;
 
 
 ********************************************************************************************************
@@ -36,27 +36,38 @@ WHERE nurse_counts.total < 30;
 3. Department Head Oversight Report
 
 SELECT 
-  D.department_name, 
-  S_Head.first_name || ' ' || S_Head.last_name AS head_doctor_name,
-  (SELECT COUNT(*) FROM Staff S_Count WHERE S_Count.department_id = D.department_id) AS total_staff_count
-FROM Department D
-JOIN Doctor Doc ON D.head_doctor_id = Doc.doctor_id
-JOIN Staff S_Head ON Doc.staff_id = S_Head.staff_id;
+    d.department_name,
+    s_head.first_name || ' ' || s_head.last_name AS head_doctor_name,
+    COUNT(s.staff_id) AS total_staff_count
+FROM Department d
+JOIN Doctor doc 
+  ON d.head_doctor_id = doc.doctor_id
+JOIN Staff s_head 
+  ON doc.staff_id = s_head.staff_id
+LEFT JOIN Staff s 
+  ON s.department_id = d.department_id
+GROUP BY 
+    d.department_id,
+    d.department_name,
+    s_head.first_name,
+    s_head.last_name;
 
 ********************************************************************************************************
 
 4. Staff Performance: Low-Volume Responders
 
-SELECT S.first_name, S.last_name, S.role, Q1_data.shift_count
-FROM Staff S
-JOIN (
-    SELECT staff_id, COUNT(*) AS shift_count
-    FROM Staff_Shift
-    WHERE EXTRACT(MONTH FROM shift_date) BETWEEN 1 AND 3
-    GROUP BY staff_id
-    HAVING COUNT(*) < 5
-) Q1_data ON S.staff_id = Q1_data.staff_id
-ORDER BY Q1_data.shift_count DESC;
+SELECT 
+    s.first_name, 
+    s.last_name, 
+    s.role, 
+    COUNT(*) AS shift_count
+FROM Staff s
+JOIN Staff_Shift ss 
+  ON s.staff_id = ss.staff_id
+GROUP BY 
+    s.staff_id, s.first_name, s.last_name, s.role
+HAVING COUNT(*) < 5
+ORDER BY shift_count DESC;
 
 ********************************************************************************************************
 
