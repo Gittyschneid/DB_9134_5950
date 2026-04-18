@@ -504,7 +504,6 @@ The Process: We created a local bridge table, staff_patient_assignment, which st
 **💻 Explanation of the processes and the commands**
 
 
-💻 Technical Process & Command Explanations
 The integration was performed in three technical phases:
 
 Phase 1: Establishing the Connection
