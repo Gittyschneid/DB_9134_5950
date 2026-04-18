@@ -535,3 +535,34 @@ The Process: We used a 4-way JOIN connecting Staff → staff_patient_assignment 
 
 The Result: This provides a unified "Doctor-Patient Roster" that shows real-time hospital activity, fulfilling the project requirements for non-trivial queries.
 
+### 📊 Views & Queries Implementation
+
+To prove the success of our integration and ensure high performance, we designed three distinct views.
+
+#### 🔹 VIEW 1: Local Wing (Staff Schedule)
+**Description:** This view queries our local `Medical Staff` database to show the upcoming shifts for all staff members, combining data from the `Staff`, `Staff_Shift`, and `Shift` tables.
+**Executed Queries:**
+1. Retrieve the next upcoming shifts specifically for Doctors.
+2. Analytical query showing the total number of shifts scheduled per staff role.
+
+<img src="Images/stage_3/view-1.jpg" width="600"/>
+
+-----------------------------------------------------------------------------------------------------
+
+#### 🔹 VIEW 2: Partner Wing (Remote Patient Admissions)
+**Description:** This view successfully queries the remote `Patient` database (using our `partner_schema` FDW) to display patients and their current admission types, proving connectivity without physical data migration.
+**Executed Queries:**
+1. Retrieve a sample list of patients and their current admission types from the foreign tables.
+2. Analytical query analyzing the remote data to count the number of patients per admission type.
+
+<img src="Images/stage_3/view-2.jpg" width="600"/>
+
+-----------------------------------------------------------------------------------------------------
+
+#### 🔹 VIEW 3: Cross-Database Integration (The Bridge)
+**Description:** The core of our Option B integration. It joins the local `Staff` table with the remote `Patient` and `Admission` tables using our `staff_patient_assignment` bridge table, providing a real-time "Doctor-Patient Roster".
+**Executed Queries:**
+1. The Integrated Roster: Shows exactly which local staff member is currently treating which remote patient.
+2. Workload Analysis: An analytical query showing how many patient interactions each staff role has handled across the integrated system.
+
+<img src="Images/stage_3/view-3.jpg" width="600"/>
