@@ -475,9 +475,14 @@ Final state after COMMIT:
 
 **🗂️ Integrated/ combined DSD**
 
+<img width="1582" height="816" alt="WhatsApp Image 2026-04-18 at 23 27 39" src="https://github.com/user-attachments/assets/46bd3525-606b-487e-bddd-115cbc6bd923" />
+
 -----------------------------------------------------------------------------------------------------
 
 **🗂️ Integrated/ combined ERD**
+
+<img width="1600" height="1496" alt="WhatsApp Image 2026-04-18 at 23 15 37" src="https://github.com/user-attachments/assets/271187fc-219a-4b6d-b5b7-896ab17f7f38" />
+
 
 -----------------------------------------------------------------------------------------------------
 
