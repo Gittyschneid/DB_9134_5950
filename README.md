@@ -40,6 +40,21 @@ ________________________________________________________________________________
     *Rollback & Commit Transactions
    
     *Constraints Using ALTER TABLE
+   
+6. Stage 3 – Advanced SQL Queries & Constraints
+
+    *DSD new
+   
+    *ERD new 
+
+    *Integrated/ combined DSD
+   
+    *Integrated/ combined ERD
+   
+    *Integration decisions made
+   
+    *Explanation of the processes and the commands
+
 
 __________________________________________________________________________________________
 
@@ -446,6 +461,73 @@ Final state after COMMIT:
 
 -----------------------------------------------------------------------------------------------------
 
-**🗂️ ERD and DSD Diagrams**
+**🗂️ DSD new**
 
+<img width="5280" height="2802" alt="DSD diagram" src="https://github.com/user-attachments/assets/234cf1bb-7b9a-42cb-903f-ab2f9fe23a58" />
+
+-----------------------------------------------------------------------------------------------------
+
+**🗂️ ERD new**
+
+<img width="5280" height="2802" alt="ERD diagram" src="https://github.com/user-attachments/assets/4a08b166-36a5-4af4-ac9f-4a98f9a71c3e" />
+
+-----------------------------------------------------------------------------------------------------
+
+**🗂️ Integrated/ combined DSD**
+
+-----------------------------------------------------------------------------------------------------
+
+**🗂️ Integrated/ combined ERD**
+
+-----------------------------------------------------------------------------------------------------
+
+**🏗️ Integration decisions made**
+
+1. The Core Strategy: Option B (Foreign Tables)
+
+We chose to implement the integration using Option B, which utilizes Foreign Data Wrappers (FDW).
+
+The Decision: Instead of migrating all data into a single schema (Option C), we kept the two databases independent.
+
+The Logic: This mimics a real-world hospital scenario where different departments (Staff HR vs. Clinical Patient Care) might use different software systems but need to share specific data for daily operations. It ensures data remains "owned" by the original department.
+
+2. The Integration Point (The Bridge)
+
+The Decision: We identified the Staff table (our system) and the Patient table (the external system) as the primary points of connection.
+
+The Logic: A Many-to-Many (M:N) relationship was established. In a clinical setting, one doctor or nurse treats many patients, and one patient can be treated by multiple staff members (specialists, residents, etc.).
+
+The Process: We created a local bridge table, staff_patient_assignment, which stores the IDs from both systems to link them without altering the original table structures.
+
+-----------------------------------------------------------------------------------------------------
+
+**💻 Explanation of the processes and the commands**
+
+
+💻 Technical Process & Command Explanations
+The integration was performed in three technical phases:
+
+Phase 1: Establishing the Connection
+
+We used the postgres_fdw extension to create a bridge between the local "Medical Staff" database and the remote "Patient" database.
+
+CREATE EXTENSION postgres_fdw: Installs the library that allows PostgreSQL to talk to other PostgreSQL servers.
+
+CREATE SERVER: Defines the location and name of the partner's database.
+
+CREATE USER MAPPING: Provides the credentials needed to securely access the partner's data.
+
+Phase 2: Virtualizing the External Data
+
+We created Foreign Tables to act as "windows" into the other group's database.
+
+CREATE FOREIGN TABLE: This command does not copy data; it creates a local definition of the remote table. This allowed us to query patient_remote as if it were a local table, even though the data lives elsewhere.
+
+Phase 3: Creating Meaningful Views
+
+To prove the integration was successful, we wrote complex Views that perform JOIN operations across the local and foreign tables.
+
+The Process: We used a 4-way JOIN connecting Staff → staff_patient_assignment → patient_remote → admission_remote.
+
+The Result: This provides a unified "Doctor-Patient Roster" that shows real-time hospital activity, fulfilling the project requirements for non-trivial queries.
 
