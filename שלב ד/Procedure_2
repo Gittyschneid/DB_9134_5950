@@ -1,0 +1,53 @@
+-------------------------------------------------------------------
+Procedure 2: Balance emergency overflow
+-------------------------------------------------------------------
+
+CREATE OR REPLACE PROCEDURE balance_emergency_overflow(
+    source_staff_id INTEGER, 
+    target_staff_id INTEGER,
+    num_to_transfer INTEGER
+)
+AS $$
+DECLARE
+    -- Record to hold patient details during the loop
+    assignment_rec RECORD;
+    transferred_count INTEGER := 0;
+BEGIN
+    RAISE NOTICE 'Initiating transfer of % patients from Staff % to Staff %', 
+                 num_to_transfer, source_staff_id, target_staff_id;
+
+    -- Explicit Cursor/Loop 
+    -- We find the most recent assignments for the busy staff member
+    FOR assignment_rec IN 
+        SELECT patient_id 
+        FROM public.staff_patient_assignment 
+        WHERE staff_id = source_staff_id
+        ORDER BY assignment_date DESC
+        LIMIT num_to_transfer
+    LOOP
+        -- DML (Update)
+        UPDATE public.staff_patient_assignment
+        SET staff_id = target_staff_id,
+            assignment_date = CURRENT_DATE,
+            notes = 'Transferred due to workload balancing'
+        WHERE patient_id = assignment_rec.patient_id 
+          AND staff_id = source_staff_id;
+
+        transferred_count := transferred_count + 1;
+        
+        RAISE NOTICE 'Successfully moved Patient ID: %', assignment_rec.patient_id;
+    END LOOP;
+
+    -- Branching
+    IF transferred_count = 0 THEN
+        RAISE NOTICE 'No patients found for Staff ID %. No transfers performed.', source_staff_id;
+    ELSE
+        RAISE NOTICE 'Process complete. Total patients moved: %', transferred_count;
+    END IF;
+
+--  Exception Handling
+EXCEPTION
+    WHEN OTHERS THEN
+        RAISE NOTICE 'Critical failure in overflow procedure: %', SQLERRM;
+END;
+$$ LANGUAGE plpgsql;
