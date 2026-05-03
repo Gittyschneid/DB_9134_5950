@@ -1,1 +1,43 @@
+-------------------------------------------------------------------------------------------------------------
+Function 1: Underworked staff count
+---------------------------------------------------------------------------------------------------------------
 
+CREATE OR REPLACE FUNCTION get_underworked_staff_count(dept_name_input VARCHAR)
+RETURNS INTEGER AS $$
+DECLARE
+    -- Explicit Cursor 
+    staff_cursor CURSOR FOR 
+        SELECT s.staff_id, COUNT(ss.staff_shift_id) as shift_count
+        FROM Staff s
+        JOIN Department d ON s.department_id = d.department_id
+        LEFT JOIN Staff_Shift ss ON s.staff_id = ss.staff_id
+        WHERE d.department_name = dept_name_input
+        GROUP BY s.staff_id;
+        
+    -- Record 
+    staff_record RECORD;
+    underworked_count INTEGER := 0;
+    min_threshold CONSTANT INTEGER := 1;
+BEGIN
+    -- Loop 
+    OPEN staff_cursor;
+    LOOP
+        FETCH staff_cursor INTO staff_record;
+        EXIT WHEN NOT FOUND;
+
+        -- Branching/IF 
+        IF staff_record.shift_count <= min_threshold THEN
+            underworked_count := underworked_count + 1;
+        END IF;
+    END LOOP;
+    CLOSE staff_cursor;
+
+    RETURN underworked_count;
+
+-- Exception Handling 
+EXCEPTION
+    WHEN OTHERS THEN
+        RAISE NOTICE 'An error occurred: %', SQLERRM;
+        RETURN -1;
+END;
+$$ LANGUAGE plpgsql;
