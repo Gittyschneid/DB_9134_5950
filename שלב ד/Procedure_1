@@ -1,0 +1,32 @@
+-------------------------------------------------------------------
+Procedure 1: Transfer patient assignment
+-------------------------------------------------------------------
+
+CREATE OR REPLACE PROCEDURE transfer_patient_assignment(
+    old_staff_id INTEGER, 
+    new_staff_id INTEGER, 
+    patient_id_input NUMERIC
+)
+AS $$
+BEGIN
+    -- Branching (Check if assignment exists)
+    IF NOT EXISTS (
+        SELECT 1 FROM public.staff_patient_assignment 
+        WHERE staff_id = old_staff_id AND patient_id = patient_id_input
+    ) THEN
+        RAISE EXCEPTION 'Assignment not found for Staff % and Patient %', old_staff_id, patient_id_input;
+    END IF;
+
+    -- DML (Update)
+    UPDATE public.staff_patient_assignment 
+    SET staff_id = new_staff_id, 
+        assignment_date = CURRENT_DATE 
+    WHERE staff_id = old_staff_id AND patient_id = patient_id_input;
+
+    RAISE NOTICE 'Transfer Successful: Patient % moved to Staff %', patient_id_input, new_staff_id;
+
+EXCEPTION
+    WHEN OTHERS THEN
+        RAISE NOTICE 'Error during transfer: %', SQLERRM; 
+END;
+$$ LANGUAGE plpgsql;
