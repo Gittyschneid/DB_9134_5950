@@ -649,3 +649,20 @@ Designed specifically for our integrated cross-database system (Step C), this tr
 **Proof of running:**
 
 <img src="Images/stage_4/trigger-2.jpg" width="600"/>
+
+---
+### Main Programs (Execution Blocks)
+
+To demonstrate the full integration and orchestration of our PL/pgSQL components, we developed two main anonymous execution blocks (DO blocks). These programs are highly dynamic, using `SELECT INTO` statements to find relevant data at runtime rather than relying on hardcoded IDs.
+
+**Main Program 1: Automated Workload Balancing System**
+This anonymous block acts as an advanced administrative automation script. It dynamically queries the database to identify the most overloaded staff member across the system, and locates an available staff member within a specific department (e.g., Cardiology). It then integrates `Function 1` to verify under-utilization and calls `Procedure 2` to automatically transfer a batch of patients, effectively balancing the hospital's workload in real-time.
+**Proof of running:**
+
+<img src="Images/stage_4/main-1.jpg" width="600"/>
+
+**Main Program 2: Automated Patient Transfer Protocol**
+This program automates specific clinical handoffs. It dynamically identifies a staff member currently treating patients and an available target staff member. Using `Function 2`, it retrieves a dynamic roster (RefCursor) of the source staff's patients, fetches the first assigned patient from the cursor, and immediately executes `Procedure 1` to safely transfer that specific patient to the new medical staff member.
+**Proof of running:**
+
+<img src="Images/stage_4/main-2.jpg" width="600"/>
