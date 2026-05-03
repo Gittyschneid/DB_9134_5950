@@ -598,6 +598,11 @@ Proof of running:
 
 This function acts as a clinical reporting tool that generates a dynamic roster of patients assigned to a specific medical staff member. It is specifically designed to work with the Integrated Wing (Step C), bridging the local Staff database with the remote Patient database using the Staff_Patient_Assignment table.
 
+<img width="877" height="901" alt="FUNCTION_2" src="https://github.com/user-attachments/assets/53e81c32-43b9-4e36-ac20-679fa83380cc" />
+
+Proof of running:
+
+<img width="606" height="612" alt="F2_PROOF" src="https://github.com/user-attachments/assets/34e80f6b-b356-49d7-80c3-92df080474ee" />
 
 -----------------------------------------------------------------------------------------------------
 
