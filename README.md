@@ -606,6 +606,31 @@ Proof of running:
 
 -----------------------------------------------------------------------------------------------------
 
+**Procedures**
+
+**Procedure 1**
+
+This procedure handles moving a patient from one doctor/staff member to another.
+
+<img width="963" height="928" alt="PROCEDURE_1" src="https://github.com/user-attachments/assets/17d19177-bf12-42c8-93a5-53d58412c389" />
+
+Proof of running:
+
+<img width="665" height="287" alt="P1_PROOF" src="https://github.com/user-attachments/assets/90c24e81-45b4-4087-9f41-2445130337e5" />
+
+**Procedure 2**
+
+This procedure is highly professional because it uses Transfers to prevent burnout. It moves a specific number of patients from a busy staff member to a less busy one.
+
+<img width="922" height="906" alt="PROCEDURE_2" src="https://github.com/user-attachments/assets/c03043e5-febb-4438-bbb6-c86dd813a1f9" />
+
+Proof of running:
+
+<img width="686" height="286" alt="P2_PROOF1" src="https://github.com/user-attachments/assets/e614b0ef-b4e6-4f25-b464-fb72b339ea49" />
+<img width="632" height="305" alt="P2_PROOF2" src="https://github.com/user-attachments/assets/03e2b19c-e318-4229-a082-8d34bfc85fd2" />
+
+
+-----------------------------------------------------------------------------------------------------
 ---
 ### Triggers
 
