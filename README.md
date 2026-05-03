@@ -55,6 +55,17 @@ ________________________________________________________________________________
    
     *Explanation of the processes and the commands
 
+7. Stage 4 – Advanced PL/pgSQL Programs
+   
+    *Functions
+   
+    *Procedures
+   
+    *Triggers
+   
+    *Main Programs
+
+
 
 __________________________________________________________________________________________
 
@@ -566,3 +577,28 @@ To prove the success of our integration and ensure high performance, we designed
 2. Workload Analysis: An analytical query showing how many patient interactions each staff role has handled across the integrated system.
 
 <img src="Images/stage_3/view-3.jpg" width="600"/>
+
+-----------------------------------------------------------------------------------------------------
+**Stage 4 – Advanced PL/pgSQL Programs**
+-----------------------------------------------------------------------------------------------------
+
+**Functions**
+
+**Function 1**
+
+This function serves as a strategic management tool for decision-making within the medical wing. It enables department heads to identify the "under-utilization" of human resources by calculating the number of staff members who have completed a low volume of shifts—specifically those at or below a defined threshold (in this case, one shift or fewer).
+
+<img width="978" height="906" alt="Screenshot 2026-05-03 at 12 27 47" src="https://github.com/user-attachments/assets/0970d1a4-f715-44fa-aec4-62a8f37b0f10" />
+
+Proof of running:
+
+<img width="616" height="234" alt="Screenshot 2026-05-03 at 12 34 40" src="https://github.com/user-attachments/assets/38016f87-2d1e-4c2f-8d69-88af6561c0ac" />
+
+**Function 2**
+
+This function acts as a clinical reporting tool that generates a dynamic roster of patients assigned to a specific medical staff member. It is specifically designed to work with the Integrated Wing (Step C), bridging the local Staff database with the remote Patient database using the Staff_Patient_Assignment table.
+
+
+-----------------------------------------------------------------------------------------------------
+
+
