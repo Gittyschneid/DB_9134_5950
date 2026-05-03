@@ -1,1 +1,35 @@
+-------------------------------------------------------------------------------------------------------------
+Function 2: Return Staf Patient roster
+---------------------------------------------------------------------------------------------------------------
+CREATE OR REPLACE FUNCTION get_staff_patient_roster(staff_id_input INTEGER)
+RETURNS REFCURSOR AS $$
+DECLARE
+    -- Returning a Ref Cursor
+    patient_roster_cursor REFCURSOR := 'roster_cursor';
+BEGIN
+    -- Validation: Check if staff member exists
+    IF NOT EXISTS (SELECT 1 FROM Staff WHERE staff_id = staff_id_input) THEN
+        RAISE EXCEPTION 'Staff ID % not found in the system.', staff_id_input; -- Exception
+    END IF;
 
+    -- Open the cursor for a query involving the Integrated Wing
+    OPEN patient_roster_cursor FOR 
+        SELECT 
+            p.first_name, 
+            p.last_name, 
+            spa.assignment_date
+        FROM partner_schema.patient p -- The Foreign Table from Step C
+        JOIN public.staff_patient_assignment spa 
+          -- Using CAST to ensure the numeric and integer IDs talk to each other
+          ON TRIM(p.patient_id::TEXT) = TRIM(spa.patient_id::TEXT)
+        WHERE spa.staff_id = staff_id_input;
+		
+    RETURN patient_roster_cursor;
+
+EXCEPTION
+    WHEN OTHERS THEN
+        -- Exception Handling
+        RAISE NOTICE 'Error retrieving roster for staff %: %', staff_id_input, SQLERRM;
+        RETURN NULL;
+END;
+$$ LANGUAGE plpgsql;
