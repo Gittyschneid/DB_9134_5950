@@ -1,3 +1,7 @@
+-------------------------------------------------------------------------------------------------------------
+Trigger 1: Prevent past shifts and log audit
+---------------------------------------------------------------------------------------------------------------
+
 -- 1. Creating the trigger function
 CREATE OR REPLACE FUNCTION trg_func_validate_shift_update()
 RETURNS TRIGGER AS $$

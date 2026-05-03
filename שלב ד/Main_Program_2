@@ -1,0 +1,56 @@
+-------------------------------------------------------------------------------------------------------------
+Main Program 2: Automated Patient Transfer Protocol
+---------------------------------------------------------------------------------------------------------------
+
+DO $$ 
+DECLARE
+    v_source_staff_id INTEGER;
+    v_target_staff_id INTEGER;
+    v_patient_id_to_move NUMERIC;
+    v_roster_cursor REFCURSOR;
+    
+    -- Variables for receiving patient data from the marker
+    v_fname VARCHAR; v_lname VARCHAR; v_date DATE;
+BEGIN
+    RAISE NOTICE '--- Automated Patient Transfer Protocol ---';
+
+    -- 1.Finding a "source" doctor who has at least one patient
+    SELECT staff_id INTO v_source_staff_id 
+    FROM staff_patient_assignment 
+    LIMIT 1;
+
+    -- 2.Finding a "target" doctor that is different from the source doctor
+    SELECT staff_id INTO v_target_staff_id 
+    FROM Staff 
+    WHERE staff_id <> v_source_staff_id 
+    LIMIT 1;
+
+    IF v_source_staff_id IS NOT NULL AND v_target_staff_id IS NOT NULL THEN
+        -- 3. Using a function to get the cursor of the patient list
+        v_roster_cursor := get_staff_patient_roster(v_source_staff_id);
+        
+        -- 4. Retrieving the first patient from the cursor to get their ID
+-- (The cursor returns names, so we will retrieve the ID directly from the table for this patient)
+        SELECT patient_id INTO v_patient_id_to_move 
+        FROM staff_patient_assignment 
+        WHERE staff_id = v_source_staff_id 
+        LIMIT 1;
+
+        FETCH v_roster_cursor INTO v_fname, v_lname, v_date;
+
+        IF FOUND THEN
+            RAISE NOTICE 'Selected Patient: % % (ID: %) from Staff ID: %', 
+                         v_fname, v_lname, v_patient_id_to_move, v_source_staff_id;
+            
+            -- 5.Performing the transfer to the destination doctor
+            CALL transfer_patient_assignment(v_source_staff_id, v_target_staff_id, v_patient_id_to_move);
+        END IF;
+        
+        CLOSE v_roster_cursor;
+    ELSE
+        RAISE NOTICE 'Insufficient data found to perform transfer.';
+    END IF;
+
+    RAISE NOTICE '--- Protocol Executed Successfully ---';
+END; 
+$$;

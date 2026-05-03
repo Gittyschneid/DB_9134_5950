@@ -1,3 +1,7 @@
+-------------------------------------------------------------------------------------------------------------
+Trigger 2: Check patient load capacity
+---------------------------------------------------------------------------------------------------------------
+
 -- 1. Creating the Trigger Function
 CREATE OR REPLACE FUNCTION trg_func_check_patient_load()
 RETURNS TRIGGER AS $$
