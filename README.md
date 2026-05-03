@@ -608,6 +608,7 @@ This function acts as a clinical reporting tool that generates a dynamic roster 
 This trigger functions as an automated compliance and auditing mechanism for staff scheduling. It operates on the `Staff_Shift` table to prevent administrative errors, actively blocking any attempts to reschedule shifts to past dates (preserving historical accuracy). Furthermore, it implements a DML tracking system that automatically logs all valid schedule modifications into a dedicated `Shift_Audit_Log` table, ensuring complete traceability of administrative actions.
 
 **Proof of running:**
+
 <img src="Images/stage_4/Exception blocking (shift update).jpg" width="600"/>
 
 <img src="Images/stage_4/trigger-1.jpg" width="600"/>
@@ -616,4 +617,5 @@ This trigger functions as an automated compliance and auditing mechanism for sta
 Designed specifically for our integrated cross-database system (Step C), this trigger acts as a safety guardrail to prevent medical staff burnout and ensure quality patient care. Before assigning a new remote patient to a local staff member in the `staff_patient_assignment` bridge table, it dynamically calculates the staff member's current daily workload. It enforces strict, role-specific clinical capacities (e.g., maximum 5 patients for Doctors, 8 for Nurses) and automatically blocks any assignments that exceed this safety threshold.
 
 **Proof of running:**
+
 <img src="Images/stage_4/trigger-2.jpg" width="600"/>
