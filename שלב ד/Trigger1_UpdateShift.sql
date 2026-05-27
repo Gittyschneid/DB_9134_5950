@@ -16,7 +16,8 @@ BEGIN
     -- Branching: Checking if an attempt is made to change a shift date to the past
     IF NEW.shift_date < CURRENT_DATE THEN
         --Throwing an error will stop the UPDATE
-        RAISE EXCEPTION 'Invalid Operation: Cannot move shift to a past date (%).', NEW.shift_date;
+        RAISE EXCEPTION 'Invalid Operation: Cannot move shift for a [%] (Staff ID: %) to a past date (%).', 
+                        v_role, NEW.staff_id, NEW.shift_date;
     END IF;
 
     -- DML: Recording the change in the audit table (only if the date has actually changed)
