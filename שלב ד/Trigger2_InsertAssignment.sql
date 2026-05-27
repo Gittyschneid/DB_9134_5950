@@ -55,6 +55,7 @@ END;
 $$ LANGUAGE plpgsql;
 
 -- 2. Linking the trigger to the linking table
+DROP TRIGGER IF EXISTS trg_insert_assignment ON staff_patient_assignment;
 
 CREATE TRIGGER trg_insert_assignment
 BEFORE INSERT OR UPDATE ON staff_patient_assignment
