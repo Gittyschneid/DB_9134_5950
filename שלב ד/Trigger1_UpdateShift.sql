@@ -36,6 +36,8 @@ END;
 $$ LANGUAGE plpgsql;
 
 -- 2. Linking the trigger to the table
+DROP TRIGGER IF EXISTS trg_update_shift ON Staff_Shift;
+
 CREATE TRIGGER trg_update_shift
 BEFORE UPDATE ON Staff_Shift
 FOR EACH ROW
