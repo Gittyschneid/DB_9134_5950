@@ -57,6 +57,6 @@ $$ LANGUAGE plpgsql;
 -- 2. Linking the trigger to the linking table
 
 CREATE TRIGGER trg_insert_assignment
-BEFORE INSERT ON staff_patient_assignment
+BEFORE INSERT OR UPDATE ON staff_patient_assignment
 FOR EACH ROW
 EXECUTE FUNCTION trg_func_check_patient_load();
