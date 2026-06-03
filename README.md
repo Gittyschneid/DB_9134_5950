@@ -657,6 +657,53 @@ To demonstrate the full integration and orchestration of our PL/pgSQL components
 
 **Main Program 1: Automated Workload Balancing System**
 This anonymous block acts as an advanced administrative automation script. It dynamically queries the database to identify the most overloaded staff member across the system, and locates an available staff member within a specific department (e.g., Cardiology). It then integrates `Function 1` to verify under-utilization and calls `Procedure 2` to automatically transfer a batch of patients, effectively balancing the hospital's workload in real-time.
+```sql
+-------------------------------------------------------------------------------------------------------------
+Main Program 1: Automated Workload Balancing System
+---------------------------------------------------------------------------------------------------------------
+
+DO $$ 
+DECLARE
+    v_dept_name VARCHAR := 'Cardiology'; -- The department name to check
+    v_busy_staff_id INTEGER;
+    v_free_staff_id INTEGER;
+    v_underworked_count INTEGER;
+BEGIN
+    RAISE NOTICE '--- Automated Workload Balancing System ---';
+
+    -- 1. Finding the busiest employee (the one with the most rows in the assignment table)
+    SELECT staff_id INTO v_busy_staff_id 
+    FROM staff_patient_assignment 
+    GROUP BY staff_id 
+    ORDER BY COUNT(*) DESC 
+    LIMIT 1;
+
+    -- 2. Finding a staff member from the desired department (perform JOIN to filter by department name)
+    SELECT s.staff_id INTO v_free_staff_id 
+    FROM Staff s
+    JOIN Department d ON s.department_id = d.department_id
+    WHERE d.department_name = v_dept_name
+    LIMIT 1;
+
+    -- 3. Checking how many "underworked" staff members are in the department (using the partner's function)
+    v_underworked_count := get_underworked_staff_count(v_dept_name);
+
+    -- Decision logic
+    IF v_busy_staff_id IS NOT NULL AND v_free_staff_id IS NOT NULL AND v_underworked_count > 0 THEN
+        RAISE NOTICE 'Found Busy Staff (ID: %) and Available Staff (ID: %) in %.', 
+                     v_busy_staff_id, v_free_staff_id, v_dept_name;
+        
+        -- Calling the balancing procedure (transferring 2 patients)
+        CALL balance_emergency_overflow(v_busy_staff_id, v_free_staff_id, 2);
+    ELSE
+        RAISE NOTICE 'System could not identify suitable staff for balancing in %.', v_dept_name;
+    END IF;
+
+    RAISE NOTICE '--- End of Automated Process ---';
+END; 
+$$;
+```
+
 **Proof of running:**
 
 <img src="Images/stage_4/main-1.jpg" width="600"/>
