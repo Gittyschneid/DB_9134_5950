@@ -636,6 +636,52 @@ Proof of running:
 
 **Trigger 1: Data Integrity & Audit Guard**
 This trigger functions as an automated compliance and auditing mechanism for staff scheduling. It operates on the `Staff_Shift` table to prevent administrative errors, actively blocking any attempts to reschedule shifts to past dates (preserving historical accuracy). Furthermore, it implements a DML tracking system that automatically logs all valid schedule modifications into a dedicated `Shift_Audit_Log` table, ensuring complete traceability of administrative actions.
+```sql
+-------------------------------------------------------------------------------------------------------------
+Trigger 1: Prevent past shifts and log audit
+---------------------------------------------------------------------------------------------------------------
+
+-- 1. Creating the trigger function
+CREATE OR REPLACE FUNCTION trg_func_validate_shift_update()
+RETURNS TRIGGER AS $$
+DECLARE
+    v_role VARCHAR(50);
+BEGIN
+    -- Implicit Cursor: Retrieving the employee role to verify that it exists
+    SELECT role INTO STRICT v_role 
+    FROM Staff 
+    WHERE staff_id = NEW.staff_id;
+
+    -- Branching: Checking if an attempt is made to change a shift date to the past
+    IF NEW.shift_date < CURRENT_DATE THEN
+        --Throwing an error will stop the UPDATE
+        RAISE EXCEPTION 'Invalid Operation: Cannot move shift for a [%] (Staff ID: %) to a past date (%).', 
+                        v_role, NEW.staff_id, NEW.shift_date;
+    END IF;
+
+    -- DML: Recording the change in the audit table (only if the date has actually changed)
+    IF OLD.shift_date IS DISTINCT FROM NEW.shift_date THEN
+        INSERT INTO Shift_Audit_Log (staff_id, old_shift_date, new_shift_date, changed_by)
+        VALUES (NEW.staff_id, OLD.shift_date, NEW.shift_date, CURRENT_USER);
+    END IF;
+
+    RETURN NEW; --Confirm the update
+    
+EXCEPTIoN
+    -- Exception Handling: What happens if the employee is deleted or does not exist?
+    WHEN NO_DATA_FOUND THEN
+        RAISE EXCEPTION 'Security Alert: Staff ID % does not exist in the system.', NEW.staff_id;
+END;
+$$ LANGUAGE plpgsql;
+
+-- 2. Linking the trigger to the table
+DROP TRIGGER IF EXISTS trg_update_shift ON Staff_Shift;
+
+CREATE TRIGGER trg_update_shift
+BEFORE UPDATE ON Staff_Shift
+FOR EACH ROW
+EXECUTE FUNCTION trg_func_validate_shift_update();
+```
 
 **Proof of running:**
 
@@ -645,6 +691,71 @@ This trigger functions as an automated compliance and auditing mechanism for sta
 
 **Trigger 2: Clinical Workload Management**
 Designed specifically for our integrated cross-database system (Step C), this trigger acts as a safety guardrail to prevent medical staff burnout and ensure quality patient care. Before assigning a new remote patient to a local staff member in the `staff_patient_assignment` bridge table, it dynamically calculates the staff member's current daily workload. It enforces strict, role-specific clinical capacities (e.g., maximum 5 patients for Doctors, 8 for Nurses) and automatically blocks any assignments that exceed this safety threshold.
+```sql
+-------------------------------------------------------------------------------------------------------------
+Trigger 2: Check patient load capacity
+---------------------------------------------------------------------------------------------------------------
+
+-- 1. Creating the Trigger Function
+CREATE OR REPLACE FUNCTION trg_func_check_patient_load()
+RETURNS TRIGGER AS $$
+DECLARE
+    v_staff_role VARCHAR(50);
+    v_patient_count INT := 0;
+    v_max_patients INT;
+    v_assignment_rec RECORD; -- Using a Record Variable
+    
+    -- Explicit cursor
+    c_today_assignments CURSOR FOR
+        SELECT assignment_id 
+        FROM staff_patient_assignment
+        WHERE staff_id = NEW.staff_id AND assignment_date = NEW.assignment_date;
+BEGIN
+    -- Finding the staff role
+    SELECT role INTO STRICT v_staff_role FROM Staff WHERE staff_id = NEW.staff_id;
+
+    -- Branching: Determining Maximum Load by Role
+    IF v_staff_role = 'Doctor' THEN
+        v_max_patients := 5;
+    ELSIF v_staff_role = 'Nurse' THEN
+        v_max_patients := 8;
+    ELSE
+        v_max_patients := 3; -- For Managers and Other Staff
+    END IF;
+
+    -- A Loop That Runs on the Explicit Cursor to Count Patients
+    OPEN c_today_assignments;
+    LOOP
+        FETCH c_today_assignments INTO v_assignment_rec;
+        EXIT WHEN NOT FOUND;
+        v_patient_count := v_patient_count + 1;
+    END LOOP;
+    CLOSE c_today_assignments;
+
+    -- Throwing an Exception if the Worker is Too Busy
+    IF v_patient_count >= v_max_patients THEN
+        RAISE EXCEPTION 'Workload Limit Exceeded! Staff % (%) cannot take more than % patients on %.', 
+            NEW.staff_id, v_staff_role, v_max_patients, NEW.assignment_date;
+    END IF;
+
+    RETURN NEW; -- Approval to perform the insertion into the table
+
+EXCEPTION
+    WHEN NO_DATA_FOUND THEN
+        RAISE EXCEPTION 'Assignment failed: Invalid Staff ID provided.';
+    WHEN OTHERS THEN
+        RAISE EXCEPTION 'An unexpected database error occurred: %', SQLERRM;
+END;
+$$ LANGUAGE plpgsql;
+
+-- 2. Linking the trigger to the linking table
+DROP TRIGGER IF EXISTS trg_insert_assignment ON staff_patient_assignment;
+
+CREATE TRIGGER trg_insert_assignment
+BEFORE INSERT OR UPDATE ON staff_patient_assignment
+FOR EACH ROW
+EXECUTE FUNCTION trg_func_check_patient_load();
+```
 
 **Proof of running:**
 
@@ -710,6 +821,65 @@ $$;
 
 **Main Program 2: Automated Patient Transfer Protocol**
 This program automates specific clinical handoffs. It dynamically identifies a staff member currently treating patients and an available target staff member. Using `Function 2`, it retrieves a dynamic roster (RefCursor) of the source staff's patients, fetches the first assigned patient from the cursor, and immediately executes `Procedure 1` to safely transfer that specific patient to the new medical staff member.
+```sql
+-------------------------------------------------------------------------------------------------------------
+Main Program 2: Automated Patient Transfer Protocol
+---------------------------------------------------------------------------------------------------------------
+
+DO $$ 
+DECLARE
+    v_source_staff_id INTEGER;
+    v_target_staff_id INTEGER;
+    v_patient_id_to_move NUMERIC;
+    v_roster_cursor REFCURSOR;
+    
+    -- Variables for receiving patient data from the marker
+    v_fname VARCHAR; v_lname VARCHAR; v_date DATE;
+BEGIN
+    RAISE NOTICE '--- Automated Patient Transfer Protocol ---';
+
+    -- 1.Finding a "source" doctor who has at least one patient
+    SELECT staff_id INTO v_source_staff_id 
+    FROM staff_patient_assignment 
+    LIMIT 1;
+
+    -- 2.Finding a "target" doctor that is different from the source doctor
+    SELECT staff_id INTO v_target_staff_id 
+    FROM Staff 
+    WHERE staff_id <> v_source_staff_id 
+    LIMIT 1;
+
+    IF v_source_staff_id IS NOT NULL AND v_target_staff_id IS NOT NULL THEN
+        -- 3. Using a function to get the cursor of the patient list
+        v_roster_cursor := get_staff_patient_roster(v_source_staff_id);
+        
+        -- 4. Retrieving the first patient from the cursor to get their ID
+-- (The cursor returns names, so we will retrieve the ID directly from the table for this patient)
+        SELECT patient_id INTO v_patient_id_to_move 
+        FROM staff_patient_assignment 
+        WHERE staff_id = v_source_staff_id 
+        LIMIT 1;
+
+        FETCH v_roster_cursor INTO v_fname, v_lname, v_date;
+
+        IF FOUND THEN
+            RAISE NOTICE 'Selected Patient: % % (ID: %) from Staff ID: %', 
+                         v_fname, v_lname, v_patient_id_to_move, v_source_staff_id;
+            
+            -- 5.Performing the transfer to the destination doctor
+            CALL transfer_patient_assignment(v_source_staff_id, v_target_staff_id, v_patient_id_to_move);
+        END IF;
+        
+        CLOSE v_roster_cursor;
+    ELSE
+        RAISE NOTICE 'Insufficient data found to perform transfer.';
+    END IF;
+
+    RAISE NOTICE '--- Protocol Executed Successfully ---';
+END; 
+$$;
+```
+
 **Proof of running:**
 
 <img src="Images/stage_4/main-2.jpg" width="600"/>
