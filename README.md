@@ -630,7 +630,6 @@ Proof of running:
 <img width="632" height="305" alt="P2_PROOF2" src="https://github.com/user-attachments/assets/03e2b19c-e318-4229-a082-8d34bfc85fd2" />
 
 
------------------------------------------------------------------------------------------------------
 ---
 ### Triggers
 
