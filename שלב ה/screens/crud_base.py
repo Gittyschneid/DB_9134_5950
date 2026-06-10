@@ -41,6 +41,7 @@ class CRUDScreen(tk.Frame):
         super().__init__(parent, bg=COLORS["bg"])
         self.app = app
         self.entries = {}  # column_name -> LabeledEntry or LabeledCombobox
+        self.record_loaded = False  # Track whether an existing database record is active
 
         # Header
         Header(self, title=self.TITLE, on_back=app.show_home).pack(fill="x")
@@ -55,6 +56,9 @@ class CRUDScreen(tk.Frame):
         # Load FK options into combos and refresh data
         self._load_fk_options()
         self.refresh_table()
+        
+        # Apply initial button states
+        self.update_button_visibility()
 
     # ------------------------------------------------------------------
     # FORM (left side)
@@ -95,18 +99,15 @@ class CRUDScreen(tk.Frame):
             widget.pack(pady=PAD_S, padx=PAD_L, fill="x")
             self.entries[f["col"]] = widget
 
-        # Action buttons
-        btn_frame = tk.Frame(form_card, bg=COLORS["surface"])
-        btn_frame.pack(pady=PAD_L, padx=PAD_L)
+        # Action buttons container
+        self.btn_frame = tk.Frame(form_card, bg=COLORS["surface"])
+        self.btn_frame.pack(pady=PAD_L, padx=PAD_L, fill="x")
 
-        StyledButton(btn_frame, "➕ Insert", self.insert_record,
-                     variant="success", width=14).grid(row=0, column=0, padx=PAD_S, pady=PAD_S)
-        StyledButton(btn_frame, "✏️ Update", self.update_record,
-                     variant="warning", width=14).grid(row=0, column=1, padx=PAD_S, pady=PAD_S)
-        StyledButton(btn_frame, "🗑️ Delete", self.delete_record,
-                     variant="danger", width=14).grid(row=1, column=0, padx=PAD_S, pady=PAD_S)
-        StyledButton(btn_frame, "🧹 Clear Form", self.clear_form,
-                     variant="primary", width=14).grid(row=1, column=1, padx=PAD_S, pady=PAD_S)
+        # Initialize button instances (visibility is handled dynamically)
+        self.btn_insert = StyledButton(self.btn_frame, "➕ Insert", self.insert_record, variant="success", width=13)
+        self.btn_update = StyledButton(self.btn_frame, "✏️ Update", self.update_record, variant="warning", width=8)
+        self.btn_delete = StyledButton(self.btn_frame, "🗑️ Delete", self.delete_record, variant="danger", width=8)
+        self.btn_clear = StyledButton(self.btn_frame, "🧹 Clear", self.clear_form, variant="primary", width=8)
 
     # ------------------------------------------------------------------
     # TABLE (right side)
@@ -191,14 +192,50 @@ class CRUDScreen(tk.Frame):
             self.tree.insert("", "end", values=[r[c] for c in cols])
 
     def _on_row_select(self, event):
-        """When a row is clicked, populate the PK field so user can update/delete."""
+        """When a row is clicked, populate the PK field and automatically load the full record."""
         selection = self.tree.selection()
         if not selection:
             return
         values = self.tree.item(selection[0])["values"]
         if values:
-            # Assume the first column in DISPLAY_QUERY is the PK (we'll set queries that way)
+            # Assume the first column in DISPLAY_QUERY is the PK
             self.entries[self.PRIMARY_KEY].set(values[0])
+            self.load_by_pk()
+
+    def update_button_visibility(self):
+        """Show or hide buttons based on whether a record is currently loaded."""
+        # Unpack all buttons from the grid/pack first
+        self.btn_insert.pack_forget()
+        self.btn_update.pack_forget()
+        self.btn_delete.pack_forget()
+        self.btn_clear.pack_forget()
+
+        # Update primary key input field state
+        pk_widget = self.entries.get(self.PRIMARY_KEY)
+        
+        if self.record_loaded:
+            # We are editing an existing record: Hide Insert, Show Update & Delete, lock PK
+            if pk_widget:
+                pk_widget.entry.config(state="disabled")
+            
+            # Use smaller width so 3 buttons fit in one row without expanding the form card
+            self.btn_update.config(width=8)
+            self.btn_delete.config(width=8)
+            self.btn_clear.config(width=8)
+            
+            self.btn_update.pack(side="left", padx=4)
+            self.btn_delete.pack(side="left", padx=4)
+            self.btn_clear.pack(side="left", padx=4)
+        else:
+            # We are in insert mode: Show Insert and Clear, enable PK
+            if pk_widget:
+                pk_widget.entry.config(state="normal")
+                
+            self.btn_insert.config(width=13)
+            self.btn_clear.config(width=13)
+            
+            self.btn_insert.pack(side="left", padx=4)
+            self.btn_clear.pack(side="left", padx=4)
 
     def load_by_pk(self):
         """Update flow: user enters PK, system fills the rest of the form."""
@@ -217,7 +254,13 @@ class CRUDScreen(tk.Frame):
 
         if not rows:
             messagebox.showinfo("Not found", f"No record with {self.PRIMARY_KEY} = {pk_value}")
+            self.record_loaded = False
+            self.update_button_visibility()
             return
+
+        # Successfully loaded the record
+        self.record_loaded = True
+        self.update_button_visibility()
 
         row = rows[0]
         for f in self.FIELDS:
@@ -305,3 +348,5 @@ class CRUDScreen(tk.Frame):
                 widget.set("")
             elif hasattr(widget, "clear"):
                 widget.clear()
+        self.record_loaded = False
+        self.update_button_visibility()
