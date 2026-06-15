@@ -15,5 +15,4 @@ class DepartmentScreen(CRUDScreen):
         SELECT department_id, department_name, location
         FROM department
         ORDER BY department_id
-        LIMIT 200
     """

@@ -20,7 +20,6 @@ class ShiftCRUD(CRUDScreen):
         SELECT shift_id, shift_name, start_time, end_time
         FROM shift
         ORDER BY shift_id
-        LIMIT 200
     """
 
 
@@ -47,7 +46,6 @@ class StaffShiftCRUD(CRUDScreen):
         LEFT JOIN staff s ON ss.staff_id = s.staff_id
         LEFT JOIN shift sh ON ss.shift_id = sh.shift_id
         ORDER BY ss.shift_date DESC
-        LIMIT 200
     """
 
 

@@ -32,7 +32,6 @@ class StaffCRUD(CRUDScreen):
         FROM staff s
         LEFT JOIN department d ON s.department_id = d.department_id
         ORDER BY s.staff_id
-        LIMIT 200
     """
 
 
@@ -53,7 +52,6 @@ class DoctorCRUD(CRUDScreen):
         FROM doctor d
         LEFT JOIN staff s ON d.staff_id = s.staff_id
         ORDER BY d.doctor_id
-        LIMIT 200
     """
 
 
@@ -73,7 +71,6 @@ class NurseCRUD(CRUDScreen):
         FROM nurse n
         LEFT JOIN staff s ON n.staff_id = s.staff_id
         ORDER BY n.nurse_id
-        LIMIT 200
     """
 
 
