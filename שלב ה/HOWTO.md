@@ -1,16 +1,16 @@
-# הוראות הפעלה – Hospital Medical Staff Management System
+# Installation & Usage Guide – Hospital Medical Staff Management System
 
-## דרישות מקדימות
+## Prerequisites
 
-- Python 3.8 ומעלה מותקן על המחשב
-- PostgreSQL פועל עם בסיס הנתונים מהשלבים הקודמים
-- חיבור לאינטרנט להתקנת החבילה (פעם אחת בלבד)
+- Python 3.8 or higher installed on your machine
+- PostgreSQL running with the database from previous stages
+- Internet connection for package installation (one time only)
 
 ---
 
-## שלב 1 – התקנת תלויות
+## Step 1 – Install Dependencies
 
-פתחו טרמינל (Command Prompt / Terminal) והריצו:
+Open a terminal (Command Prompt / Terminal) and run:
 
 ```bash
 pip install psycopg2-binary
@@ -18,89 +18,89 @@ pip install psycopg2-binary
 
 ---
 
-## שלב 2 – הגדרת חיבור לבסיס הנתונים
+## Step 2 – Configure the Database Connection
 
-פתחו את הקובץ `db.py` ועדכנו את הפרטים הבאים:
+Open `db.py` and update the following fields:
 
 ```python
 DB_CONFIG = {
     "host": "localhost",
-    "port": 5432,               # הפורט של PostgreSQL אצלכם
-    "database": "hospital_db",  # שם בסיס הנתונים שלכם
-    "user": "postgres",         # שם המשתמש שלכם
-    "password": "your_password" # הסיסמה שלכם
+    "port": 5432,               # your PostgreSQL port
+    "database": "hospital_db",  # your database name
+    "user": "postgres",         # your username
+    "password": "your_password" # your password
 }
 ```
 
 ---
 
-## שלב 3 – הפעלת האפליקציה
+## Step 3 – Run the Application
 
-מתוך תיקיית הפרויקט הריצו:
+From the project folder, run:
 
 ```bash
 python main.py
 ```
 
-חלון האפליקציה ייפתח אוטומטית.
+The application window will open automatically.
 
 ---
 
-## שלב 4 – ניווט במערכת
+## Step 4 – Navigating the System
 
-מסך הבית מציג:
-- סטטוס חיבור לבסיס הנתונים (ירוק = מחובר)
-- סטטיסטיקות חיות (מספר עובדים, מחלקות, משמרות)
-- כפתורי ניווט לכל מסכי המערכת
+The home screen displays:
+- Database connection status (green = connected)
+- Live statistics (total staff, departments, shifts)
+- Navigation buttons to all system screens
 
-לחצו על אחד מהכפתורים כדי להיכנס למסך הרצוי.
+Click any button to enter the desired screen.
 
 ---
 
-## שלב 5 – ביצוע פעולות CRUD
+## Step 5 – Performing CRUD Operations
 
-בכל מסך טבלה (Staff, Departments, Shifts וכו'):
+On every table screen (Staff, Departments, Shifts, etc.):
 
-| פעולה | איך לבצע |
+| Action | How to perform |
 |---|---|
-| **הוספה** | מלאו את השדות בטופס השמאלי ← לחצו Insert |
-| **עדכון** | הכניסו את ה-ID בשדה העליון ← לחצו Load Record ← ערכו ← לחצו Update |
-| **מחיקה** | הכניסו את ה-ID ← לחצו Delete ← אשרו בחלון האישור |
-| **צפייה** | הטבלה מתרעננת אוטומטית; לחצו על שורה כלשהי לטעינתה לטופס |
+| **Insert** | Fill in the form fields on the left → click Insert |
+| **Update** | Enter the record ID in the top field → click Load Record → edit fields → click Update |
+| **Delete** | Enter the record ID → click Delete → confirm in the dialog |
+| **View** | The table refreshes automatically; click any row to load it into the form |
 
 ---
 
-## שלב 6 – הרצת דוחות ושאילתות
+## Step 6 – Running Reports & Queries
 
-1. לחצו על **Analytical Reports** מהתפריט הראשי
-2. בחרו אחד משני הדוחות:
-   - **Monthly Workload Report** – עומס משמרות לפי עובד לפי חודש
-   - **Understaffed Departments** – מחלקות עם מחסור בכוח אדם
-3. התוצאות מוצגות בטבלה ישירות על המסך
-
----
-
-## שלב 7 – הפעלת פונקציות ופרוצדורות
-
-1. לחצו על **Procedures & Actions** מהתפריט הראשי
-2. בחרו טאב:
-   - **Function: Under-utilized Staff** – הכניסו ערך סף ולחצו Run Function
-   - **Procedure: Transfer Patient** – הכניסו Patient ID, From Staff ID, To Staff ID ולחצו Run Procedure
-3. התוצאה / הודעת הצלחה תוצג מתחת לכפתור
+1. Click **Analytical Reports** from the main menu
+2. Choose one of the two reports:
+   - **Monthly Workload Report** – shift count per staff member per month
+   - **Understaffed Departments** – departments with insufficient staff
+3. Results are displayed in a table directly on the screen
 
 ---
 
-## פתרון בעיות נפוצות
+## Step 7 – Running Functions & Procedures
 
-**האפליקציה לא נפתחת**
-- ודאו ש-Python מותקן: `python --version`
-- ודאו שאתם בתיקיית הפרויקט הנכונה
+1. Click **Procedures & Actions** from the main menu
+2. Choose a tab:
+   - **Function: Under-utilized Staff** – enter a shift threshold and click Run Function
+   - **Procedure: Transfer Patient** – enter Patient ID, From Staff ID, To Staff ID and click Run Procedure
+3. The result or success message will appear below the button
 
-**הודעת שגיאה "Database error"**
-- ודאו ש-PostgreSQL פועל
-- בדקו שפרטי ה-DB_CONFIG ב-`db.py` נכונים
+---
 
-**Tkinter לא מותקן (Linux בלבד)**
+## Troubleshooting
+
+**Application does not open**
+- Verify Python is installed: `python --version`
+- Make sure you are in the correct project folder
+
+**"Database error" message**
+- Verify PostgreSQL is running
+- Double-check the DB_CONFIG details in `db.py`
+
+**Tkinter not found (Linux only)**
 ```bash
 sudo apt-get install python3-tk
 ```
