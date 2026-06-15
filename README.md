@@ -889,7 +889,25 @@ $$;
 
 # Stage 5 – Graphical User Interface
 
-GUI application for the Hospital Medical Staff Management System.
+GUI application for the **Hospital Medical Staff Management System** — built with Python and Tkinter.
+
+> A full-featured desktop application for managing hospital staff, departments, and shift assignments.  
+> The system supports all CRUD operations across 6 database tables, runs analytical reports from Stage 2,  
+> and triggers PL/pgSQL functions and procedures from Stage 4 — all through a modern graphical interface.
+> 
+---
+## 📸 Application Screenshots
+
+### Home Screen
+[כאן תכניסו צילום מסך של מסך הבית עם הסטטיסטיקות]
+
+### Staff Management
+[כאן תכניסו צילום מסך של מסך ניהול הסטף עם הטבלה והטופס]
+
+### Reports & Queries
+[כאן תכניסו צילום מסך של הרצת אחת השאילתות עם תוצאות]
+### Procedures & Functions
+[כאן תכניסו צילום מסך של הרצת הפונקציה או הפרוצדורה]
 
 ---
 
@@ -915,9 +933,9 @@ Open **`db.py`** and update the `DB_CONFIG` dictionary with your credentials:
 DB_CONFIG = {
     "host": "localhost",
     "port": 5432,
-    "database": "hospital_db",   # your DB name
-    "user": "postgres",          # your username
-    "password": "your_password"  # your password
+    "database": "hospital_db",   #  DB name
+    "user": "postgres",          #  username
+    "password": "your_password"  #  password
 }
 ```
 
@@ -1002,26 +1020,41 @@ This means:
 
 ## 🧰 Tools used
 
-- **Python 3** – language
-- **Tkinter / ttk** – GUI framework (standard library, no external GUI deps)
-- **psycopg2** – PostgreSQL driver
-- **PostgreSQL** – database (from Stages 1–4)
+| Tool | Purpose |
+|---|---|
+| **Python 3** | Application language |
+| **Tkinter / ttk** | GUI framework — standard library, no external GUI dependencies |
+| **psycopg2** | PostgreSQL driver — connects Python to the database |
+| **PostgreSQL** | Database engine (from Stages 1–4) |
+| **ttk.Treeview** | Used for all data tables in the application |
+| **ttk.Notebook** | Used for tabbed screens (Staff, Shifts, Procedures) |
 
+### Design approach
+The UI follows a modern SaaS dashboard style — indigo/slate color palette, card-based layout, and styled buttons — all defined centrally in `styles.py` so the entire app can be restyled by editing one file.  
+The architecture separates concerns cleanly: `db.py` handles all database logic, `widgets.py` holds reusable components, `styles.py` holds all design tokens, and each screen in `screens/` is self-contained.
+
+---
+## 🔗 Integration with Previous Stages
+
+- **Stage 1** — The tables (`staff`, `department`, `shift`, `staff_shift`, `doctor`, `nurse`) were defined here and are the backbone of every CRUD screen
+- **Stage 2** — Two SELECT queries are wired directly into the Reports screen and run live against the database
+- **Stage 4** — The PL/pgSQL function and procedure are called from the Procedures screen using `CALL` and `SELECT` via `db.py`
+
+---
 ## 🐛 Troubleshooting
 
 **"Database error" on the home screen**
-- Check that PostgreSQL is running
+- Make sure PostgreSQL is running
 - Verify the credentials in `db.py`
-- Verify your database name matches
+- Confirm the database name matches exactly
 
-**"Function does not exist" when clicking a procedure button**
-- Open `screens/procedures_screen.py` and update the function/procedure names to match what you actually created in PostgreSQL during Stage 4
+**"Function does not exist" when clicking a Procedures button**
+- Open `screens/procedures_screen.py` and update the function/procedure names to match what you created in Stage 4
 
-**Combobox is empty (FK dropdown has no options)**
+**Combobox is empty (FK dropdown shows nothing)**
 - This means the FK table is empty or the column names in `fk_key`/`fk_display` don't match. Check the table actually has rows and the column names are correct.
 
-**Tkinter not installed (Linux)**
+**Tkinter not found (Linux)**
 ```bash
 sudo apt-get install python3-tk
 ```
-
