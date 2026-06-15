@@ -63,9 +63,9 @@ On every table screen (Staff, Departments, Shifts, etc.):
 
 | Action | How to perform |
 |---|---|
-| **Insert** | Fill in the form fields on the left → click Insert |
-| **Update** | Enter the record ID in the top field → click Load Record → edit fields → click Update |
-| **Delete** | Enter the record ID → click Delete → confirm in the dialog |
+| **Insert** | Press Insert → Fill in the form fields on the left |
+| **Update** | Enter the record ID in the top field or press desired row → edit fields → click Update |
+| **Delete** | Enter the record ID or press desired row → click Delete → confirm in the dialog |
 | **View** | The table refreshes automatically; click any row to load it into the form |
 
 ---
@@ -85,7 +85,7 @@ On every table screen (Staff, Departments, Shifts, etc.):
 1. Click **Procedures & Actions** from the main menu
 2. Choose a tab:
    - **Function: Under-utilized Staff** – enter a shift threshold and click Run Function
-   - **Procedure: Transfer Patient** – enter Patient ID, From Staff ID, To Staff ID and click Run Procedure
+   - **Procedure: Transfer Patient** – enter Patient ID, From Staff ID will fill accordingly, Fill out to Staff ID and click Run Procedure
 3. The result or success message will appear below the button
 
 ---
