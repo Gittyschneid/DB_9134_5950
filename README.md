@@ -899,15 +899,27 @@ GUI application for the **Hospital Medical Staff Management System** — built w
 ## 📸 Application Screenshots
 
 ### Home Screen
-[כאן תכניסו צילום מסך של מסך הבית עם הסטטיסטיקות]
+<img width="3584" height="2240" alt="image" src="https://github.com/user-attachments/assets/f9740d68-39cd-403e-9627-80d7ccfa69b7" />
 
-### Staff Management
-[כאן תכניסו צילום מסך של מסך ניהול הסטף עם הטבלה והטופס]
+### Staff Management tables
+<img width="3584" height="2240" alt="image" src="https://github.com/user-attachments/assets/1faa8164-56f4-41e9-9c68-2f7a5669c5f4" />
+
+<img width="3584" height="2240" alt="image" src="https://github.com/user-attachments/assets/2483cb51-785a-446e-b698-ef6620e2f4e1" />
+
+<img width="3584" height="2240" alt="image" src="https://github.com/user-attachments/assets/5230e407-82b4-418f-9d49-8c2f2f0cc309" />
+
 
 ### Reports & Queries
-[כאן תכניסו צילום מסך של הרצת אחת השאילתות עם תוצאות]
+<img width="3584" height="2240" alt="image" src="https://github.com/user-attachments/assets/66d20972-1378-4ced-a88d-cfa11664a589" />
+
+<img width="3584" height="2240" alt="image" src="https://github.com/user-attachments/assets/06734384-9742-4002-bb44-d98e27ae21a0" />
+
+
 ### Procedures & Functions
-[כאן תכניסו צילום מסך של הרצת הפונקציה או הפרוצדורה]
+<img width="3584" height="2240" alt="image" src="https://github.com/user-attachments/assets/39d8bb64-8a92-4187-b1a8-9de0227e9532" />
+
+<img width="3584" height="2240" alt="image" src="https://github.com/user-attachments/assets/d9028dd7-2e81-4ba3-bbf1-96fdc4f0b92b" />
+
 
 ---
 
